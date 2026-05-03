@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="google-site-verification" content="dEv91QLLvmtGD8EB0XMD2sdPtD3aj8jLkcb6l1C1G2E" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jan M. — Creative Designer & Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,12 +15,12 @@
   --bg: #0a0a0f;
   --bg2: #11111a;
   --bg3: #181825;
-  --accent: #c8a96e;
-  --accent2: #e8c98e;
-  --accent-dim: rgba(200,169,110,0.15);
+  --accent: #00ff41;
+  --accent2: #39ff14;
+  --accent-dim: rgba(0,255,65,0.1);
   --white: #f0ece4;
   --muted: #7a7785;
-  --border: rgba(200,169,110,0.18);
+  --border: rgba(0,255,65,0.15);
   --font-display: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
   --radius: 12px;
@@ -177,7 +178,7 @@ nav.scrolled {
   transition: all var(--transition) !important;
 }
 .nav-cta::after { display: none !important; }
-.nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,169,110,0.3) !important; }
+.nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,255,65,0.3) !important; }
 .hamburger {
   display: none;
   flex-direction: column; gap: 5px;
@@ -248,21 +249,41 @@ section { position: relative; z-index: 1; }
   overflow: hidden;
   position: relative;
 }
+.hero-bg-slider {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-bg-slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  filter: brightness(0.3) saturate(1.2);
+}
+.hero-bg-slide.active { opacity: 1; }
+.hero-bg-slide::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,15,0.8) 0%, rgba(10,10,15,0.4) 50%, rgba(10,10,15,0.9) 100%);
+}
 .hero-bg-circle {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
+  z-index: 1;
 }
 .hbc1 {
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(200,169,110,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,255,65,0.15) 0%, transparent 70%);
   top: -100px; right: -100px;
   animation: floatA 8s ease-in-out infinite;
 }
 .hbc2 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,255,65,0.08) 0%, transparent 70%);
   bottom: 50px; left: -50px;
   animation: floatB 10s ease-in-out infinite;
 }
@@ -277,6 +298,8 @@ section { position: relative; z-index: 1; }
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -335,7 +358,7 @@ section { position: relative; z-index: 1; }
 .btn-primary:hover {
   background: var(--accent2);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(200,169,110,0.35);
+  box-shadow: 0 12px 30px rgba(0,255,65,0.35);
 }
 .btn-outline {
   padding: 14px 32px;
@@ -483,7 +506,7 @@ section { position: relative; z-index: 1; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(200,169,110,0.05) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 60%);
 }
 .about-initials {
   font-family: var(--font-display);
@@ -512,7 +535,7 @@ section { position: relative; z-index: 1; }
   border-radius: 16px;
   padding: 16px 20px;
   text-align: center;
-  box-shadow: 0 20px 50px rgba(200,169,110,0.3);
+  box-shadow: 0 20px 50px rgba(0,255,65,0.3);
 }
 .about-exp-badge strong {
   display: block;
@@ -591,7 +614,7 @@ section { position: relative; z-index: 1; }
   line-height: 1;
   transition: color var(--transition);
 }
-.service-card:hover .service-number { color: rgba(200,169,110,0.15); }
+.service-card:hover .service-number { color: rgba(0,255,65,0.1); }
 .service-icon {
   width: 56px; height: 56px;
   background: var(--accent-dim);
@@ -623,7 +646,7 @@ section { position: relative; z-index: 1; }
   font-size: 0.74rem;
   color: var(--muted);
 }
-.service-card:hover .service-tag { border-color: rgba(200,169,110,0.3); color: var(--accent); }
+.service-card:hover .service-tag { border-color: rgba(0,255,65,0.3); color: var(--accent); }
 .service-arrow {
   display: inline-flex; align-items: center; gap: 6px;
   color: var(--accent); font-size: 0.82rem; font-weight: 500;
@@ -689,20 +712,13 @@ section { position: relative; z-index: 1; }
   position: relative;
 }
 .portfolio-item.featured .portfolio-thumb { aspect-ratio: 16/8; }
-.portfolio-thumb-inner {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3rem;
-  transition: transform 0.4s;
-  position: relative;
+.portfolio-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
 }
-.portfolio-item:hover .portfolio-thumb-inner { transform: scale(1.05); }
-.pt-bg {
-  position: absolute; inset: 0;
-  opacity: 0.15;
-  transition: opacity 0.3s;
-}
-.portfolio-item:hover .pt-bg { opacity: 0.25; }
+.portfolio-item:hover .portfolio-thumb img { transform: scale(1.08); }
 .portfolio-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(10,10,15,0.95) 0%, transparent 60%);
@@ -774,7 +790,7 @@ section { position: relative; z-index: 1; }
   background: var(--accent);
   color: var(--bg);
   border-color: var(--accent);
-  box-shadow: 0 0 40px rgba(200,169,110,0.4);
+  box-shadow: 0 0 40px rgba(0,255,65,0.4);
 }
 .process-step h4 {
   font-family: var(--font-display);
@@ -1110,6 +1126,14 @@ footer {
 
 <!-- ==================== HERO ==================== -->
 <section id="home">
+  <!-- Background Image Slider -->
+  <div class="hero-bg-slider">
+    <div class="hero-bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80');"></div>
+    <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80');"></div>
+    <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80');"></div>
+    <div class="hero-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1920&q=80');"></div>
+  </div>
+  
   <div class="hero-bg-circle hbc1"></div>
   <div class="hero-bg-circle hbc2"></div>
   <div class="hero-inner">
@@ -1371,10 +1395,7 @@ footer {
 
     <div class="portfolio-item featured" data-cat="web" onclick="openModal('modal1')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#c8a96e,#4a3520);"></div>
-          <span style="z-index:1">🌐</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="E-Commerce Platform">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
             <a class="btn-primary" onclick="event.stopPropagation();openModal('modal1')">View Details →</a>
@@ -1390,13 +1411,10 @@ footer {
 
     <div class="portfolio-item" data-cat="design" onclick="openModal('modal2')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#e8c98e,#1a1005);"></div>
-          <span style="z-index:1">🎨</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80" alt="Brand Identity">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
-            <a class="btn-primary">View Details →</a>
+            <a class="btn-primary" onclick="event.stopPropagation();openModal('modal2')">View Details →</a>
           </div>
         </div>
       </div>
@@ -1409,13 +1427,10 @@ footer {
 
     <div class="portfolio-item" data-cat="seo" onclick="openModal('modal3')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#6ea8c8,#0a1520);"></div>
-          <span style="z-index:1">📈</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="SEO Campaign">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
-            <a class="btn-primary">View Details →</a>
+            <a class="btn-primary" onclick="event.stopPropagation();openModal('modal3')">View Details →</a>
           </div>
         </div>
       </div>
@@ -1428,13 +1443,10 @@ footer {
 
     <div class="portfolio-item" data-cat="design" onclick="openModal('modal4')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#c86e8c,#200a10);"></div>
-          <span style="z-index:1">📱</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80" alt="Social Media Design">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
-            <a class="btn-primary">View Details →</a>
+            <a class="btn-primary" onclick="event.stopPropagation();openModal('modal4')">View Details →</a>
           </div>
         </div>
       </div>
@@ -1447,13 +1459,10 @@ footer {
 
     <div class="portfolio-item" data-cat="web" onclick="openModal('modal5')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#6ec87a,#051a08);"></div>
-          <span style="z-index:1">💻</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Portfolio Website">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
-            <a class="btn-primary">View Details →</a>
+            <a class="btn-primary" onclick="event.stopPropagation();openModal('modal5')">View Details →</a>
           </div>
         </div>
       </div>
@@ -1466,13 +1475,10 @@ footer {
 
     <div class="portfolio-item" data-cat="design" onclick="openModal('modal6')">
       <div class="portfolio-thumb">
-        <div class="portfolio-thumb-inner">
-          <div class="pt-bg" style="background:linear-gradient(135deg,#a8c86e,#0f200a);"></div>
-          <span style="z-index:1">📦</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80" alt="Packaging Design">
         <div class="portfolio-overlay">
           <div class="portfolio-overlay-content">
-            <a class="btn-primary">View Details →</a>
+            <a class="btn-primary" onclick="event.stopPropagation();openModal('modal6')">View Details →</a>
           </div>
         </div>
       </div>
@@ -1806,6 +1812,16 @@ window.addEventListener('load', () => {
     }
   }, 100);
 });
+
+// --- HERO BACKGROUND SLIDER ---
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-bg-slide');
+function changeSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+setInterval(changeSlide, 5000);
 
 // --- CURSOR ---
 const cursor = document.getElementById('cursor');
