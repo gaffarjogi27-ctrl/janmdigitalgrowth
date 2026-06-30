@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="7EAt4FHGZn6Wov81TEyYwhuFmmD8NR1UyC6Peg3Y9x0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jan M Digital Growth — Graphics · Web · SEO</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -312,4 +312,1043 @@
 </head>
 <body class="bg-textured">
   <div class="grain" id="grain"></div>
-  ... (rest of your body content) ...
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="font-heading text-sm tracking-wider text-[var(--fg)]">Message Sent Successfully</div>
+    <div class="font-mono text-[11px] text-[var(--muted)] mt-1">Jan Muhammad will get back to you within 24 hours.</div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button id="closeMenu" class="absolute top-6 right-6 text-[var(--fg)] text-2xl"><i class="fas fa-times"></i></button>
+    <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo-mobile mb-4">
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#services" onclick="closeMobileMenu()">Services</a>
+    <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
+    <a href="#process" onclick="closeMobileMenu()">Process</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <!-- Top Nav -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/50 border-b border-white/5">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo">
+        <div>
+          <div class="font-display text-xl md:text-2xl leading-none tracking-wider">JAN M DIGITAL GROWTH</div>
+          <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.3em] mt-0.5">DESIGN · DEVELOP · RANK</div>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-10">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#process" class="nav-link">Process</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-5">
+        <div class="hidden md:flex items-center gap-2 font-mono text-[11px] text-[var(--muted)]">
+          <i class="fas fa-location-dot text-[var(--accent)]"></i>
+          <span>KARACHI, PAKISTAN</span>
+        </div>
+        <a href="#contact" class="hidden sm:inline-block font-heading text-xs tracking-[0.2em] uppercase text-black bg-[var(--silver)] px-5 py-2.5 hover:bg-white transition-colors">
+          Get a Quote
+        </a>
+        <button id="hamburger" class="lg:hidden text-[var(--fg)] text-xl"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative h-screen min-h-[760px] w-full overflow-hidden" id="hero">
+    <div class="absolute inset-0" id="reelContainer">
+      <div class="reel-frame active">
+        <img src="https://picsum.photos/seed/jmDesignX1/1920/1080.jpg" alt="Graphics designing workspace">
+      </div>
+      <div class="reel-frame">
+        <img src="https://picsum.photos/seed/jmCodeX2/1920/1080.jpg" alt="Web development">
+      </div>
+      <div class="reel-frame">
+        <img src="https://picsum.photos/seed/jmSeoX3/1920/1080.jpg" alt="SEO analytics">
+      </div>
+      <div class="reel-frame">
+        <img src="https://picsum.photos/seed/jmBrandX4/1920/1080.jpg" alt="Brand identity">
+      </div>
+      <div class="reel-frame">
+        <img src="https://picsum.photos/seed/jmGrowthX5/1920/1080.jpg" alt="Digital growth">
+      </div>
+    </div>
+
+    <div class="hero-overlay"></div>
+    <div class="scan-line"></div>
+
+    <div class="relative z-10 h-full max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col justify-end pb-20 pt-32">
+
+      <div class="absolute top-32 right-6 lg:right-10 flex items-center gap-6 z-20">
+        <div class="hidden md:flex items-center gap-3 font-mono text-[11px] text-[var(--fg-dim)]">
+          <span class="rec-dot w-2 h-2 bg-[var(--accent)] rounded-full"></span>
+          <span class="tracking-[0.2em]">PORTFOLIO · LIVE</span>
+        </div>
+        <button id="muteToggle" class="unmute-toggle flex items-center gap-3 px-4 py-2.5 border border-white/20 hover:border-[var(--accent)] bg-black/40 backdrop-blur-sm transition-colors group">
+          <div class="flex items-end gap-[2px] h-4">
+            <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+          </div>
+          <span class="font-mono text-[10px] tracking-[0.2em] uppercase" id="muteLabel">Muted</span>
+          <i class="fas fa-volume-xmark text-xs text-[var(--muted)] group-hover:text-[var(--accent)]" id="muteIcon"></i>
+        </button>
+      </div>
+
+      <div class="reveal in-view max-w-5xl">
+        <div class="section-marker mb-6"><span>JAN MUHAMMAD · KARACHI, PK</span></div>
+        <h1 class="font-display text-[12vw] md:text-[9vw] lg:text-[7.5vw] leading-[0.85] mb-8">
+          <span class="headline-line"><span>DESIGN THAT</span></span>
+          <span class="headline-line"><span class="text-stroke">COMMANDS</span></span>
+          <span class="headline-line"><span>ATTENTION. <span class="text-[var(--accent)]">GROWTH</span> THAT FOLLOWS.</span></span>
+        </h1>
+        <p class="max-w-xl text-[var(--fg-dim)] text-base md:text-lg leading-relaxed font-body">
+          I'm Jan Muhammad — a one-man digital army based in Karachi. I craft visuals that stop the scroll, build websites that convert, and deploy SEO strategies that put you on the first page. <span class="text-[var(--fg)]">No fluff. Just results.</span>
+        </p>
+      </div>
+
+      <div class="mt-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        <div class="flex items-center gap-4">
+          <div class="flex -space-x-3">
+            <img src="https://picsum.photos/seed/jmCl1/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+            <img src="https://picsum.photos/seed/jmCl2/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+            <img src="https://picsum.photos/seed/jmCl3/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+            <img src="https://picsum.photos/seed/jmCl4/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+            <div class="w-12 h-12 rounded-full border-2 border-[var(--bg)] bg-[var(--accent)] flex items-center justify-center font-display text-base text-black">+50</div>
+          </div>
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-[var(--muted)] uppercase">Happy Clients</div>
+            <div class="font-heading text-sm text-[var(--fg)] tracking-wider">Businesses trusting Jan M</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 max-w-md w-full lg:w-auto">
+          <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em]"><span id="chapterNum">01</span> / 05</div>
+          <div class="flex-1 progress-bar"><div class="progress-bar-fill" id="reelProgress"></div></div>
+          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">WORK REEL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-black/60 backdrop-blur-sm py-3 overflow-hidden z-10">
+      <div class="marquee-track font-display text-sm tracking-[0.25em] text-[var(--silver-dim)]">
+        <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">BRAND IDENTITY</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">LOGO DESIGN</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">BRAND IDENTITY</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">LOGO DESIGN</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--accent)]">/</span>
+        <span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--accent)]">/</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="border-y border-[var(--border)] bg-[var(--bg-darker)] relative overflow-hidden">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
+      <div class="reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+        <div class="border-l border-[var(--border-light)] pl-6">
+          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="150">0</div>
+          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">Projects Delivered</div>
+        </div>
+        <div class="border-l border-[var(--border-light)] pl-6">
+          <div class="font-display text-6xl md:text-7xl text-[var(--accent)] number-display" data-count="50">0</div>
+          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">Happy Clients</div>
+        </div>
+        <div class="border-l border-[var(--border-light)] pl-6">
+          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="35">0</div>
+          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">#1 Rankings Achieved</div>
+        </div>
+        <div class="border-l border-[var(--border-light)] pl-6">
+          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="98">0</div>
+          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">% Client Retention</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT JAN MUHAMMAD -->
+  <section class="relative py-28 lg:py-36" id="about">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+
+      <div class="reveal grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <!-- Image grid -->
+        <div class="lg:col-span-5 order-2 lg:order-1">
+          <div class="about-img-grid" style="height: 520px;">
+            <div class="span-2" style="height: 55%;">
+              <img src="https://picsum.photos/seed/janWorkspace/800/500.jpg" alt="Jan Muhammad at workspace">
+            </div>
+            <div style="height: 42%;">
+              <img src="https://picsum.photos/seed/janDesigning/400/400.jpg" alt="Designing work">
+            </div>
+            <div style="height: 42%;">
+              <img src="https://picsum.photos/seed/janCoding/400/400.jpg" alt="Coding work">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text content -->
+        <div class="lg:col-span-7 order-1 lg:order-2">
+          <div class="section-marker mb-6"><span>01 — The Person Behind The Pixels</span></div>
+          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9] mb-8">
+            I'M <span class="text-[var(--accent)]">JAN MUHAMMAD.</span><br>
+            <span class="text-stroke">I BUILD DIGITAL EMPIRES.</span>
+          </h2>
+          <div class="space-y-5 text-[var(--fg-dim)] text-base md:text-lg leading-relaxed max-w-2xl">
+            <p>
+              I started my journey in digital design and development out of pure obsession — the drive to create things that don't just look beautiful, but actually <span class="text-[var(--fg)]">perform</span>. Based in Karachi, Pakistan, I've spent years mastering three core disciplines that most agencies split across entire teams.
+            </p>
+            <p>
+              From crafting brand identities that make businesses unforgettable, to building blazing-fast websites that convert visitors into customers, to deploying SEO strategies that consistently land my clients on Google's first page — <span class="text-[var(--fg)]">I do it all, and I do it with precision</span>.
+            </p>
+            <p>
+              I'm not a big agency with layers of account managers. When you work with me, you work directly with the person designing your logo, writing your code, and optimizing your rankings. That's why my clients stay — <span class="text-[var(--accent)]">98% retention rate</span> isn't a marketing number, it's a relationship metric.
+            </p>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-4">
+            <div class="info-card px-5 py-4 flex items-center gap-3">
+              <i class="fas fa-palette text-[var(--accent)]"></i>
+              <div>
+                <div class="font-heading text-sm tracking-wider">Graphics Expert</div>
+                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">PS · AI · CANVA · FIGMA</div>
+              </div>
+            </div>
+            <div class="info-card px-5 py-4 flex items-center gap-3">
+              <i class="fas fa-code text-[var(--accent)]"></i>
+              <div>
+                <div class="font-heading text-sm tracking-wider">Full-Stack Dev</div>
+                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">HTML · CSS · JS · WP · REACT</div>
+              </div>
+            </div>
+            <div class="info-card px-5 py-4 flex items-center gap-3">
+              <i class="fas fa-chart-line text-[var(--accent)]"></i>
+              <div>
+                <div class="font-heading text-sm tracking-wider">SEO Strategist</div>
+                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">AHREFS · SEMRUSH · GA4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="services">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+
+      <div class="reveal grid lg:grid-cols-12 gap-8 mb-20">
+        <div class="lg:col-span-5">
+          <div class="section-marker mb-6"><span>02 — Services</span></div>
+          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+            Three pillars.<br>
+            <span class="text-stroke">One mission:</span><br>
+            <span class="text-[var(--accent)]">your digital growth.</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7 flex flex-col justify-end">
+          <p class="text-[var(--fg-dim)] text-lg leading-relaxed mb-6">
+            Every service I offer is engineered around a single objective — measurable, aggressive growth for your brand. I don't just deliver work. I deliver impact.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="goal-pill active">All Services</span>
+            <span class="goal-pill">Design</span>
+            <span class="goal-pill">Development</span>
+            <span class="goal-pill">SEO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-stagger grid md:grid-cols-3 gap-6 lg:gap-8">
+
+        <!-- GRAPHICS DESIGNING -->
+        <article class="program-card info-card notch-corner group" data-service="design">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmGraphicsSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="Graphics designing">
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
+            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">01 / DESIGN</div>
+            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">CREATIVE 100%</div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-4xl mb-3">GRAPHICS DESIGNING</h3>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
+              Logos, social media creatives, brand identities, flyers, banners, posters, and everything visual that makes your brand unforgettable. Bold, clean, conversion-focused design.
+            </p>
+            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Turnaround</div><div class="font-heading text-base">2–5 DAYS</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Revisions</div><div class="font-heading text-base">UNLIMITED</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Deliverables</div><div class="font-heading text-base">PNG · SVG · PDF</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Tools</div><div class="font-heading text-base">PS · AI · CANVA</div></div>
+            </div>
+            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
+              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEB DEVELOPMENT -->
+        <article class="program-card info-card notch-corner group" data-service="development">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmWebdevSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="Web development">
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
+            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">02 / DEVELOPMENT</div>
+            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">PERFORMANCE 95%</div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-4xl mb-3">WEB DEVELOPMENT</h3>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
+              Custom websites, landing pages, e-commerce stores, and web apps built for speed, responsiveness, and conversions. Clean code, fast load times, seamless UX.
+            </p>
+            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Turnaround</div><div class="font-heading text-base">5–14 DAYS</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Stack</div><div class="font-heading text-base">HTML · CSS · JS · WP</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Responsive</div><div class="font-heading text-base">ALL DEVICES</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Support</div><div class="font-heading text-base">30 DAYS FREE</div></div>
+            </div>
+            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
+              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- SEO -->
+        <article class="program-card info-card notch-corner group" data-service="seo">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmSeoSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="SEO service">
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
+            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">03 / SEO</div>
+            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">RANKINGS 100%</div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-4xl mb-3">SEARCH ENGINE OPTIMIZATION</h3>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
+              On-page, off-page, technical SEO, keyword research, and content strategy to dominate Google rankings. Data-driven approach. Real traffic. Real leads.
+            </p>
+            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Timeline</div><div class="font-heading text-base">30–90 DAYS</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Reporting</div><div class="font-heading text-base">WEEKLY</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Scope</div><div class="font-heading text-base">FULL STACK SEO</div></div>
+              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Guarantee</div><div class="font-heading text-base">PAGE 1 OR FREE</div></div>
+            </div>
+            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
+              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO GALLERY + FLIP CARDS -->
+  <section class="relative py-28 lg:py-36 border-t border-[var(--border)]" id="portfolio">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+
+      <div class="reveal grid lg:grid-cols-12 gap-8 mb-12">
+        <div class="lg:col-span-7">
+          <div class="section-marker mb-6"><span>03 — Portfolio</span></div>
+          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+            My work <span class="text-[var(--accent)]">speaks</span><br>
+            <span class="text-stroke">louder than promises.</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
+          <p class="text-[var(--fg-dim)] text-base leading-relaxed">
+            A selection of real projects I've delivered. Each one represents a business I helped grow through design, code, and strategy. Hover the cards to see the details.
+          </p>
+        </div>
+      </div>
+
+      <!-- Image Gallery Grid -->
+      <div class="reveal mb-16">
+        <div class="portfolio-gallery">
+          <div class="pg-item wide">
+            <img src="https://picsum.photos/seed/jmPortLogo/1200/600.jpg" alt="Logo design project">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">BRAND IDENTITY</div>
+              <div class="font-display text-2xl">LUXE WEAR — LOGO & BRAND KIT</div>
+            </div>
+          </div>
+          <div class="pg-item tall">
+            <img src="https://picsum.photos/seed/jmPortSocial/600/1200.jpg" alt="Social media design">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">SOCIAL MEDIA</div>
+              <div class="font-display text-2xl">50+ POST TEMPLATES</div>
+            </div>
+          </div>
+          <div class="pg-item">
+            <img src="https://picsum.photos/seed/jmPortWeb1/600/600.jpg" alt="Website design">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">WEB DEVELOPMENT</div>
+              <div class="font-display text-2xl">SPICE HOUSE WEBSITE</div>
+            </div>
+          </div>
+          <div class="pg-item">
+            <img src="https://picsum.photos/seed/jmPortSeo1/600/600.jpg" alt="SEO dashboard">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">SEO RESULTS</div>
+              <div class="font-display text-2xl">PAGE 1 RANKINGS</div>
+            </div>
+          </div>
+          <div class="pg-item">
+            <img src="https://picsum.photos/seed/jmPortFlyer/600/600.jpg" alt="Flyer design">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">PRINT DESIGN</div>
+              <div class="font-display text-2xl">EVENT FLYERS & BANNERS</div>
+            </div>
+          </div>
+          <div class="pg-item wide">
+            <img src="https://picsum.photos/seed/jmPortEcomm/1200/600.jpg" alt="E-commerce website">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">E-COMMERCE</div>
+              <div class="font-display text-2xl">WOOCOMMERCE STORE — FULL BUILD</div>
+            </div>
+          </div>
+          <div class="pg-item">
+            <img src="https://picsum.photos/seed/jmPortUi/600/600.jpg" alt="UI design">
+            <div class="pg-overlay">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">UI/UX DESIGN</div>
+              <div class="font-display text-2xl">DASHBOARD INTERFACE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Flip Cards -->
+      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Project 1 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front info-card flex flex-col">
+              <div class="coach-img-wrap">
+                <img src="https://picsum.photos/seed/jmFlipEcomm/600/800.jpg" alt="Luxe Wear PK project">
+                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 01</div>
+                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">E-COMMERCE</div>
+                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Full Brand + Store + SEO</div></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display text-3xl leading-none">LUXE WEAR PK</h3>
+                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Fashion E-Commerce</p>
+                </div>
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
+                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + DEV + SEO</span>
+                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Luxe Wear PK — Case Study</div>
+              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
+              <ul class="space-y-2.5 text-sm mb-6">
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Complete brand identity — logo, colors, typography</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>WooCommerce store with 200+ products</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>12 keywords ranked on Google Page 1</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>340% increase in organic traffic</span></li>
+              </ul>
+              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
+                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
+                <div class="font-display text-2xl text-[var(--accent)]">PS · AI · WP · AHREFS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front info-card flex flex-col">
+              <div class="coach-img-wrap">
+                <img src="https://picsum.photos/seed/jmFlipRestaurant/600/800.jpg" alt="Spice House project">
+                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 02</div>
+                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">RESTAURANT</div>
+                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Website + Local SEO</div></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display text-3xl leading-none">SPICE HOUSE</h3>
+                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Restaurant & Catering</p>
+                </div>
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
+                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DEV + LOCAL SEO</span>
+                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Spice House — Case Study</div>
+              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
+              <ul class="space-y-2.5 text-sm mb-6">
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>One-page site with menu & online ordering</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Google Business Profile fully optimized</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>#1 ranked for "best restaurant in area"</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>200% more online orders in 60 days</span></li>
+              </ul>
+              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
+                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
+                <div class="font-display text-2xl text-[var(--accent)]">FIGMA · HTML · GMB</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front info-card flex flex-col">
+              <div class="coach-img-wrap">
+                <img src="https://picsum.photos/seed/jmFlipRealEstate/600/800.jpg" alt="Home Finders project">
+                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 03</div>
+                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">REAL ESTATE</div>
+                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Branding + Lead Gen SEO</div></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display text-3xl leading-none">HOME FINDERS</h3>
+                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Real Estate Agency</p>
+                </div>
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
+                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + SEO</span>
+                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Home Finders — Case Study</div>
+              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
+              <ul class="space-y-2.5 text-sm mb-6">
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Full brand kit — logo, colors, fonts, guidelines</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Property listing website with search filters</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>18 keywords on Google Page 1</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Lead generation increased 450%</span></li>
+              </ul>
+              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
+                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
+                <div class="font-display text-2xl text-[var(--accent)]">AI · REACT · AHREFS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front info-card flex flex-col">
+              <div class="coach-img-wrap">
+                <img src="https://picsum.photos/seed/jmFlipStartup/600/800.jpg" alt="PayFlow App project">
+                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 04</div>
+                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">TECH STARTUP</div>
+                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Complete Digital Presence</div></div>
+              </div>
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display text-3xl leading-none">PAYFLOW APP</h3>
+                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Fintech Startup</p>
+                </div>
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
+                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + DEV</span>
+                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
+                </div>
+              </div>
+            </div>
+            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
+              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ PayFlow App — Case Study</div>
+              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
+              <ul class="space-y-2.5 text-sm mb-6">
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Landing page with 98 PageSpeed score</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Investor pitch deck designed in Figma</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Social media kit — 50+ post templates</span></li>
+                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Client secured seed funding in 3 months</span></li>
+              </ul>
+              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
+                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
+                <div class="font-display text-2xl text-[var(--accent)]">FIGMA · NEXT.JS · GA4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="process">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <div class="reveal text-center mb-20">
+        <div class="section-marker mb-6 justify-center"><span>04 — How I Work</span></div>
+        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+          A process built for <span class="text-[var(--accent)]">results.</span>
+        </h2>
+        <p class="max-w-2xl mx-auto text-[var(--fg-dim)] text-lg leading-relaxed mt-6">
+          No guesswork. No wasted time. Every project follows a battle-tested framework that's delivered results for 50+ businesses across Pakistan and beyond.
+        </p>
+      </div>
+
+      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div class="info-card notch-corner p-7 process-connector">
+          <div class="font-display text-6xl text-[var(--accent)] mb-4">01</div>
+          <h3 class="font-display text-3xl mb-3">DISCOVER</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I dive deep into your business, audience, competitors, and goals. This isn't a questionnaire — it's a strategy session with you.</p>
+          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 1–2</div></div>
+        </div>
+        <div class="info-card notch-corner p-7 process-connector">
+          <div class="font-display text-6xl text-[var(--accent)] mb-4">02</div>
+          <h3 class="font-display text-3xl mb-3">STRATEGIZE</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I build a custom roadmap — design direction, tech stack, SEO targets. You approve the plan before I write a single line of code.</p>
+          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 2–3</div></div>
+        </div>
+        <div class="info-card notch-corner p-7 process-connector">
+          <div class="font-display text-6xl text-[var(--accent)] mb-4">03</div>
+          <h3 class="font-display text-3xl mb-3">EXECUTE</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Design, develop, optimize — simultaneously. You get regular updates, live previews, and unlimited revisions until it's perfect.</p>
+          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 3–14</div></div>
+        </div>
+        <div class="info-card notch-corner p-7">
+          <div class="font-display text-6xl text-[var(--accent)] mb-4">04</div>
+          <h3 class="font-display text-3xl mb-3">GROW</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Launch is just the beginning. I monitor, iterate, and scale. Monthly reports, ongoing optimization, and direct WhatsApp access to me.</p>
+          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Ongoing</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="relative py-28 lg:py-36 overflow-hidden border-t border-[var(--border)]" id="testimonials">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 mb-16">
+      <div class="reveal grid lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7">
+          <div class="section-marker mb-6"><span>05 — Client Voices</span></div>
+          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+            Real clients.<br><span class="text-[var(--accent)]">Real</span> results.
+          </h2>
+        </div>
+        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
+          <p class="text-[var(--fg-dim)] text-base leading-relaxed mb-5">Every testimonial is from a real business owner I've worked with. Drag to read their experience.</p>
+          <div class="flex items-center gap-3 font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">
+            <i class="fas fa-hand-pointer text-[var(--accent)]"></i><span>Drag · Swipe · Auto-advance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden">
+      <div class="story-track" id="storyTrack">
+        <article class="story-card">
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmTestAhmed/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Ahmed R.">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 01</div>
+            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">E-COMMERCE</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">AHMED R.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">LUXE WEAR PK</span></div>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"Jan Muhammad completely transformed our online presence. From the logo to the website to SEO — everything was handled professionally. Our sales tripled in 4 months. The guy is a machine."</p>
+            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
+              <div><div class="font-display text-xl text-[var(--accent)]">340%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Traffic Up</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">3X</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Sales</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">P1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Rankings</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmTestFatima/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Fatima Z.">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 02</div>
+            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">RESTAURANT</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">FATIMA Z.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">SPICE HOUSE</span></div>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"We were invisible on Google before Jan stepped in. Now we're #1 for our area. Online orders doubled in just 2 months. His SEO skills are no joke."</p>
+            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
+              <div><div class="font-display text-xl text-[var(--accent)]">#1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Google Rank</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">200%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">More Orders</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">5★</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Reviews</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmTestBilal/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Bilal K.">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 03</div>
+            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">REAL ESTATE</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">BILAL K.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">HOME FINDERS</span></div>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"The branding Jan created for us is world-class. Our website generates leads 24/7 now. Best investment we've made for our business — hands down. Highly recommend."</p>
+            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
+              <div><div class="font-display text-xl text-[var(--accent)]">450%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Lead Gen</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">18</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">KW on P1</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">24/7</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Leads</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmTestSara/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Sara M.">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 04</div>
+            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">STARTUP</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">SARA M.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">PAYFLOW APP</span></div>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"Jan designed our entire digital presence from zero. Landing page, pitch deck, social media — everything was cohesive and premium. Investors loved it. We got funded!"</p>
+            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
+              <div><div class="font-display text-xl text-[var(--accent)]">98</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">PageSpeed</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">50+</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Templates</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">FUNDED</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">3 Months</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://picsum.photos/seed/jmTestUsman/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Usman H.">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 05</div>
+            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">PHOTOGRAPHY</div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">USMAN H.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">LENSCRAFT STUDIO</span></div>
+            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"My portfolio website is a work of art. Jan understood my aesthetic instantly. The SEO work brought in clients I never would have found. Truly exceptional talent."</p>
+            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
+              <div><div class="font-display text-xl text-[var(--accent)]">5X</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Bookings</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">P1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Local SEO</div></div>
+              <div><div class="font-display text-xl text-[var(--fg)]">10S</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Load Time</div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY JAN M -->
+  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="whyus">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <div class="reveal text-center mb-20">
+        <div class="section-marker mb-6 justify-center"><span>06 — Why Jan M</span></div>
+        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+          Not a vendor. <span class="text-[var(--accent)]">Your growth partner.</span>
+        </h2>
+      </div>
+      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-bolt text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">FAST TURNAROUND</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Most websites delivered in 5–14 days. Design drafts within 48 hours. I don't drag projects for months.</p>
+        </div>
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-infinity text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">UNLIMITED REVISIONS</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I don't stop until you're 100% satisfied. No revision caps, no hidden fees. Your vision, my execution.</p>
+        </div>
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-chart-line text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">DATA-DRIVEN SEO</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">No black-hat tricks. Premium tools, real keyword data, and proven strategies to get you ranking on Page 1.</p>
+        </div>
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-comments text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">DIRECT ACCESS</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">No account managers, no middlemen. You talk directly to me — Jan Muhammad. WhatsApp, call, or email.</p>
+        </div>
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-shield-halved text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">AFFORDABLE PREMIUM</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Agency-quality work at freelancer prices. Based in Karachi means lower costs for you — without compromising quality.</p>
+        </div>
+        <div class="info-card p-8">
+          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-handshake text-[var(--accent)] text-xl"></i></div>
+          <h3 class="font-display text-3xl mb-3">POST-LAUNCH SUPPORT</h3>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I don't disappear after delivery. 30 days free support on all projects. Extended plans for ongoing maintenance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="relative py-28 lg:py-36 border-t border-[var(--border)]" id="contact">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <div class="reveal grid lg:grid-cols-12 gap-8 mb-20">
+        <div class="lg:col-span-7">
+          <div class="section-marker mb-6"><span>07 — Let's Talk</span></div>
+          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
+            Ready to <span class="text-[var(--accent)]">grow</span>?<br><span class="text-stroke">Let's build.</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
+          <p class="text-[var(--fg-dim)] text-base leading-relaxed">Fill out the form or reach out directly. Free consultation for every new client — no strings attached.</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-7">
+          <div class="booking-frame p-8 lg:p-10">
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+              <div class="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                <div><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Your Name</label><input type="text" class="form-input" placeholder="Full name" required></div>
+                <div><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Phone / WhatsApp</label><input type="tel" class="form-input" placeholder="+92 3XX XXXXXXX" required></div>
+              </div>
+              <div class="mt-2"><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Email Address</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+              <div class="mt-2">
+                <label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Service Needed</label>
+                <div class="flex flex-wrap gap-3 mt-3" id="servicePills">
+                  <span class="goal-pill active" data-value="Graphics Designing" onclick="toggleServicePill(this)">Graphics Designing</span>
+                  <span class="goal-pill" data-value="Web Development" onclick="toggleServicePill(this)">Web Development</span>
+                  <span class="goal-pill" data-value="SEO" onclick="toggleServicePill(this)">SEO</span>
+                  <span class="goal-pill" data-value="All Services" onclick="toggleServicePill(this)">All Services</span>
+                </div>
+              </div>
+              <div class="mt-2"><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Project Details</label><textarea class="form-input resize-none" rows="3" placeholder="Tell me about your project, goals, and timeline..."></textarea></div>
+              <div class="mt-8">
+                <button type="submit" class="pulse-btn font-heading text-sm tracking-[0.2em] uppercase text-black bg-[var(--accent)] px-10 py-4 hover:bg-[var(--accent-bright)] transition-colors w-full sm:w-auto">
+                  Send Message <i class="fas fa-paper-plane ml-2"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 lg:col-start-9 flex flex-col gap-6">
+          <div class="info-card p-7">
+            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Direct Contact — Jan Muhammad</div>
+            <div class="space-y-4">
+              <a href="mailto:janmbapraofficial@gmail.com" class="flex items-center gap-4 group">
+                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors"><i class="fas fa-envelope text-[var(--accent)] text-sm"></i></div>
+                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Email</div><div class="font-heading text-sm tracking-wider link-underline">janmbapraofficial@gmail.com</div></div>
+              </a>
+              <a href="tel:03343976323" class="flex items-center gap-4 group">
+                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors"><i class="fas fa-phone text-[var(--accent)] text-sm"></i></div>
+                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Phone / WhatsApp</div><div class="font-heading text-sm tracking-wider link-underline">03343976323</div></div>
+              </a>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center"><i class="fas fa-location-dot text-[var(--accent)] text-sm"></i></div>
+                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Location</div><div class="font-heading text-sm tracking-wider">Karachi, Pakistan</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card p-7">
+            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Working Hours</div>
+            <div class="space-y-2">
+              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Monday – Friday</span><span>10:00 AM – 10:00 PM</span></div>
+              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Saturday</span><span>11:00 AM – 6:00 PM</span></div>
+              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Sunday</span><span class="text-[var(--accent)]">By Appointment</span></div>
+            </div>
+          </div>
+
+          <div class="info-card p-7">
+            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Follow My Work</div>
+            <div class="flex gap-3">
+              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-instagram text-sm"></i></a>
+              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-facebook-f text-sm"></i></a>
+              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-linkedin-in text-sm"></i></a>
+              <a href="https://wa.me/923343976323" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-whatsapp text-sm"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[var(--border)] bg-[var(--bg-darker)]">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16">
+      <div class="grid md:grid-cols-3 gap-10 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo-footer">
+          </div>
+          <p class="text-[var(--fg-dim)] text-sm leading-relaxed max-w-xs">
+            Jan M Digital Growth — your one-stop digital agency in Karachi. Graphics designing, web development, and SEO by Jan Muhammad. All focused on your growth.
+          </p>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">Quick Links</div>
+          <div class="space-y-2">
+            <a href="#about" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">About Jan Muhammad</a>
+            <a href="#services" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Services</a>
+            <a href="#portfolio" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Portfolio</a>
+            <a href="#process" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">My Process</a>
+            <a href="#testimonials" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Testimonials</a>
+            <a href="#contact" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">Get In Touch</div>
+          <div class="space-y-2 font-heading text-sm tracking-wider text-[var(--fg-dim)]">
+            <a href="mailto:janmbapraofficial@gmail.com" class="block hover:text-[var(--fg)] transition-colors">janmbapraofficial@gmail.com</a>
+            <a href="tel:03343976323" class="block hover:text-[var(--fg)] transition-colors">03343976323</a>
+            <div>Karachi, Pakistan</div>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[var(--border)] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">&copy; 2025 JAN M DIGITAL GROWTH. ALL RIGHTS RESERVED.</div>
+        <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGNED & DEVELOPED BY <span class="text-[var(--accent)]">JAN MUHAMMAD</span> IN KARACHI</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta bg-[var(--bg-darker)] border-t border-[var(--accent)] backdrop-blur-md" id="stickyCta">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-3.5 flex items-center justify-between">
+      <div class="font-heading text-sm tracking-wider text-[var(--fg-dim)]">Ready to grow? <span class="text-[var(--fg)]">Let's start your project today.</span></div>
+      <div class="flex items-center gap-4">
+        <a href="tel:03343976323" class="font-heading text-xs tracking-[0.15em] uppercase text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors hidden sm:block"><i class="fas fa-phone text-[var(--accent)] mr-1"></i> 03343976323</a>
+        <a href="#contact" class="font-heading text-xs tracking-[0.2em] uppercase text-black bg-[var(--accent)] px-5 py-2.5 hover:bg-[var(--accent-bright)] transition-colors">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== REEL SLIDESHOW ======
+    const reelFrames = document.querySelectorAll('.reel-frame');
+    const reelProgress = document.getElementById('reelProgress');
+    const chapterNum = document.getElementById('chapterNum');
+    let currentReel = 0;
+    const reelDuration = 9000;
+    let reelTimer, reelStartTime;
+
+    function advanceReel() {
+      reelFrames[currentReel].classList.remove('active');
+      const img = reelFrames[currentReel].querySelector('img');
+      if (img) { img.style.animation = 'none'; img.offsetHeight; img.style.animation = ''; }
+      currentReel = (currentReel + 1) % reelFrames.length;
+      reelFrames[currentReel].classList.add('active');
+      chapterNum.textContent = String(currentReel + 1).padStart(2, '0');
+      startReelTimer();
+    }
+
+    function startReelTimer() {
+      reelStartTime = Date.now();
+      clearInterval(reelTimer);
+      reelTimer = setInterval(() => {
+        const elapsed = Date.now() - reelStartTime;
+        reelProgress.style.width = Math.min((elapsed / reelDuration) * 100, 100) + '%';
+        if (elapsed >= reelDuration) advanceReel();
+      }, 50);
+    }
+    startReelTimer();
+
+    // ====== MUTE TOGGLE ======
+    const muteToggle = document.getElementById('muteToggle');
+    const muteLabel = document.getElementById('muteLabel');
+    const muteIcon = document.getElementById('muteIcon');
+    let isMuted = true;
+    muteToggle.addEventListener('click', () => {
+      isMuted = !isMuted;
+      muteToggle.classList.toggle('unmuted', !isMuted);
+      muteLabel.textContent = isMuted ? 'Muted' : 'Live';
+      muteIcon.className = isMuted ? 'fas fa-volume-xmark text-xs text-[var(--muted)] group-hover:text-[var(--accent)]' : 'fas fa-volume-high text-xs text-[var(--accent)]';
+    });
+
+    // ====== INTERSECTION OBSERVER ======
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    // ====== NUMBER COUNTER ======
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target, target = parseInt(el.dataset.count);
+          let current = 0;
+          const increment = Math.max(1, Math.floor(target / 60));
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) { current = target; clearInterval(timer); }
+            el.textContent = current.toLocaleString();
+          }, 25);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.number-display[data-count]').forEach(el => counterObserver.observe(el));
+
+    // ====== STORY CAROUSEL ======
+    const storyTrack = document.getElementById('storyTrack');
+    let isDragging = false, startX, scrollLeft, autoScrollInterval;
+
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(() => {
+        storyTrack.scrollLeft += 1;
+        if (storyTrack.scrollLeft >= storyTrack.scrollWidth - storyTrack.clientWidth) storyTrack.scrollLeft = 0;
+      }, 30);
+    }
+
+    storyTrack.addEventListener('mousedown', (e) => { isDragging = true; storyTrack.classList.add('dragging'); startX = e.pageX - storyTrack.offsetLeft; scrollLeft = storyTrack.scrollLeft; clearInterval(autoScrollInterval); });
+    storyTrack.addEventListener('mouseleave', () => { isDragging = false; storyTrack.classList.remove('dragging'); startAutoScroll(); });
+    storyTrack.addEventListener('mouseup', () => { isDragging = false; storyTrack.classList.remove('dragging'); startAutoScroll(); });
+    storyTrack.addEventListener('mousemove', (e) => { if (!isDragging) return; e.preventDefault(); storyTrack.scrollLeft = scrollLeft - ((e.pageX - storyTrack.offsetLeft) - startX) * 1.5; });
+    storyTrack.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].pageX - storyTrack.offsetLeft; scrollLeft = storyTrack.scrollLeft; clearInterval(autoScrollInterval); }, { passive: true });
+    storyTrack.addEventListener('touchend', () => { isDragging = false; startAutoScroll(); });
+    storyTrack.addEventListener('touchmove', (e) => { if (!isDragging) return; storyTrack.scrollLeft = scrollLeft - ((e.touches[0].pageX - storyTrack.offsetLeft) - startX); }, { passive: true });
+    startAutoScroll();
+
+    // ====== STICKY CTA ======
+    const stickyCta = document.getElementById('stickyCta');
+    const stickyObserver = new IntersectionObserver((entries) => { entries.forEach(entry => stickyCta.classList.toggle('visible', !entry.isIntersecting)); }, { threshold: 0.05 });
+    stickyObserver.observe(document.getElementById('hero'));
+
+    // ====== SERVICE PILLS FILTER ======
+    document.querySelectorAll('#services .goal-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('#services .goal-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.textContent.trim().toLowerCase();
+        document.querySelectorAll('#services .program-card').forEach(card => {
+          card.style.display = (filter === 'all services') ? '' : (card.dataset.service === filter ? '' : 'none');
+        });
+      });
+    });
+
+    // ====== CONTACT FORM SERVICE PILLS ======
+    function toggleServicePill(el) {
+      document.querySelectorAll('#servicePills .goal-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // ====== FORM SUBMIT ======
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('toast').classList.add('visible');
+      e.target.reset();
+      document.querySelectorAll('#servicePills .goal-pill').forEach(p => p.classList.remove('active'));
+      document.querySelector('#servicePills .goal-pill[data-value="Graphics Designing"]').classList.add('active');
+      setTimeout(() => document.getElementById('toast').classList.remove('visible'), 4000);
+    }
+
+    // ====== MOBILE MENU ======
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('closeMenu').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+    function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+    // ====== GRAIN ======
+    const grain = document.getElementById('grain');
+    function moveGrain() { grain.style.transform = `translate(${(Math.random()-0.5)*20}px, ${(Math.random()-0.5)*20}px)`; requestAnimationFrame(() => setTimeout(moveGrain, 120)); }
+    moveGrain();
+  </script>
+</body>
+</html>
