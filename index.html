@@ -4,1351 +4,889 @@
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="7EAt4FHGZn6Wov81TEyYwhuFmmD8NR1UyC6Peg3Y9x0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jan M, Creative Graphics design, Web & SEO</title>
+<title>Jan M — Creative Graphics Design, Web Development & Digital Marketing</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --bg-darker: #050505;
-    --bg-card: #141414;
-    --bg-card-hover: #1a1a1a;
-    --fg: #f5f5f5;
-    --fg-dim: #c0c0c0;
-    --muted: #6a6a6a;
-    --accent: #FF5400;
-    --accent-bright: #FF7A33;
-    --accent-dim: #B33A00;
-    --accent-glow: rgba(255, 84, 0, 0.45);
-    --silver: #C8C8C8;
-    --silver-dim: #5a5a5a;
-    --border: #1f1f1f;
-    --border-light: #2a2a2a;
-  }
+@property --logo-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@property --border-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+:root{--bg:#0a0a0a;--bg-d:#050505;--bg-c:#111;--bg-ch:#181818;--fg:#f5f5f5;--fg-d:#c0c0c0;--mt:#6a6a6a;--ac:#FF5400;--ac-b:#FF7A33;--ac-d:#B33A00;--sv:#C8C8C8;--sv-d:#5a5a5a;--bd:#1a1a1a;--bd-l:#252525}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Archivo',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.font-display{font-family:'Bebas Neue',sans-serif;letter-spacing:.005em}
+.font-heading{font-family:'Oswald',sans-serif}
+.font-mono{font-family:'JetBrains Mono',monospace}
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+/* ===== PRELOADER ===== */
+#preloader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
+#preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+.preloader-logo{width:80px;height:80px;position:relative;margin-bottom:40px}
+.preloader-logo img{width:100%;height:100%;object-fit:contain;filter:brightness(1.2);animation:preloader-pulse 1.2s ease-in-out infinite}
+@keyframes preloader-pulse{0%,100%{filter:brightness(1.2) drop-shadow(0 0 0 transparent)}50%{filter:brightness(1.5) drop-shadow(0 0 20px rgba(255,84,0,.5))}}
+.preloader-bar-wrap{width:200px;height:2px;background:var(--bd);border-radius:2px;overflow:hidden;position:relative}
+.preloader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac-b));border-radius:2px;transition:width .3s ease}
+.preloader-pct{font-mono;font-size:11px;color:var(--mt);letter-spacing:.3em;margin-top:16px}
+.preloader-ring{position:absolute;inset:-15px;border-radius:50%;border:1px solid transparent;border-top-color:var(--ac);animation:preloader-spin 1s linear infinite}
+@keyframes preloader-spin{to{transform:rotate(360deg)}}
 
-  body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: 'Archivo', sans-serif;
-    overflow-x: hidden;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-  }
+/* ===== CURSOR SYSTEM ===== */
+.cursor-dot{position:fixed;width:6px;height:6px;background:var(--ac);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s,opacity .3s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,84,0,.6);border-radius:50%;pointer-events:none;z-index:9998;transition:width .4s cubic-bezier(.22,1,.36,1),height .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s}
+.cursor-ring.hovering{width:56px;height:56px;border-color:var(--ac);background:rgba(255,84,0,.06)}
+.cursor-trail{position:fixed;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:9997;background:var(--ac);opacity:0}
+@media(max-width:1023px){.cursor-dot,.cursor-ring,.cursor-trail{display:none!important}}
 
-  .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.005em; }
-  .font-heading { font-family: 'Oswald', sans-serif; }
-  .font-body { font-family: 'Archivo', sans-serif; }
-  .font-mono { font-family: 'JetBrains Mono', monospace; }
+/* ===== LOGO ===== */
+.jm-logo-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:4px;border-radius:10px;cursor:pointer;transform-style:preserve-3d;perspective:800px;will-change:transform}
+.jm-logo-wrap::before{content:'';position:absolute;inset:-2px;border-radius:12px;background:conic-gradient(from var(--logo-angle),transparent 0%,rgba(255,84,0,0) 5%,rgba(255,84,0,.9) 12%,rgba(255,122,51,1) 18%,rgba(255,84,0,0) 25%,transparent 40%,transparent 60%,rgba(255,84,0,0) 75%,rgba(255,84,0,.7) 82%,rgba(255,122,51,.9) 88%,rgba(255,84,0,0) 95%,transparent 100%);animation:rotate-logo-border 3s linear infinite;z-index:0;opacity:0;transition:opacity .6s cubic-bezier(.22,1,.36,1);filter:blur(.5px)}
+.jm-logo-wrap:hover::before{opacity:1}
+.jm-logo-wrap::after{content:'';position:absolute;inset:-8px;border-radius:16px;background:radial-gradient(ellipse at center,rgba(255,84,0,.15) 0%,transparent 70%);z-index:-1;opacity:0;transition:opacity .6s,transform .6s;transform:scale(.8);animation:logo-glow-pulse 2.5s ease-in-out infinite}
+.jm-logo-wrap:hover::after{opacity:1;transform:scale(1)}
+@keyframes rotate-logo-border{to{--logo-angle:360deg}}
+@keyframes logo-glow-pulse{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:.7;transform:scale(1.1)}}
+.jm-logo-inner{position:relative;z-index:1;background:var(--bg);border-radius:7px;padding:2px;display:flex;align-items:center;justify-content:center;transition:background .4s}
+.jm-logo-wrap:hover .jm-logo-inner{background:#0d0d0d}
+.jm-logo{height:38px;width:auto;filter:brightness(1.1) drop-shadow(0 0 0 transparent);transition:filter .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.jm-logo-wrap:hover .jm-logo{filter:brightness(1.4) drop-shadow(0 0 12px rgba(255,84,0,.6)) drop-shadow(0 0 30px rgba(255,84,0,.25));transform:scale(1.05)}
+.jm-logo-wrap.logo-enter{animation:logo-entrance 1.2s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes logo-entrance{0%{opacity:0;transform:scale(.3) rotate(-15deg) translateY(-20px);filter:blur(8px)}50%{opacity:1;filter:blur(0)}70%{transform:scale(1.08) rotate(2deg) translateY(0)}85%{transform:scale(.97) rotate(-1deg)}100%{opacity:1;transform:scale(1) rotate(0) translateY(0);filter:blur(0)}}
+.jm-logo-wrap.logo-float{animation:logo-float-anim 4s ease-in-out infinite;animation-delay:1.5s}
+@keyframes logo-float-anim{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+.logo-shimmer{position:absolute;inset:0;border-radius:10px;z-index:2;pointer-events:none;overflow:hidden;opacity:0;transition:opacity .4s}
+.jm-logo-wrap:hover .logo-shimmer{opacity:1}
+.logo-shimmer::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:skewX(-20deg);animation:shimmer-sweep 2.5s ease-in-out infinite}
+@keyframes shimmer-sweep{0%{left:-60%}100%{left:140%}}
+.logo-sparkle{position:absolute;border-radius:50%;pointer-events:none;z-index:5}
+.jm-logo-wrap.footer-logo::before{animation-duration:5s;opacity:.4}
+.jm-logo-wrap.footer-logo .jm-logo{height:44px}
+.jm-logo-wrap.mobile-logo .jm-logo{height:30px}
+.jm-logo-wrap.mobile-logo::before{animation-duration:4s}
 
-  .grain {
-    position: fixed;
-    inset: -10%;
-    pointer-events: none;
-    z-index: 200;
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    mix-blend-mode: overlay;
-    will-change: transform;
-  }
+/* ===== GRAIN & PARTICLES ===== */
+.grain{position:fixed;inset:-10%;pointer-events:none;z-index:200;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:overlay}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(48px);
-    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: var(--delay, 0s);
-  }
-  .reveal.in-view { opacity: 1; transform: translateY(0); }
+/* ===== SCROLL REVEAL SYSTEM ===== */
+.reveal{opacity:0;transform:translateY(60px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1);transition-delay:var(--d,0s)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-80px) rotate(-2deg);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.reveal-left.in-view{opacity:1;transform:translateX(0) rotate(0)}
+.reveal-right{opacity:0;transform:translateX(80px) rotate(2deg);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.reveal-right.in-view{opacity:1;transform:translateX(0) rotate(0)}
+.reveal-scale{opacity:0;transform:scale(.85);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.reveal-scale.in-view{opacity:1;transform:scale(1)}
+.reveal-rotate{opacity:0;transform:perspective(800px) rotateY(-8deg) translateX(-40px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.reveal-rotate.in-view{opacity:1;transform:perspective(800px) rotateY(0) translateX(0)}
+.reveal-stagger>*{opacity:0;transform:translateY(40px) scale(.96);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),box-shadow .8s}
+.reveal-stagger.in-view>*{opacity:1;transform:translateY(0) scale(1)}
+.reveal-stagger.in-view>*:nth-child(1){transition-delay:0s}
+.reveal-stagger.in-view>*:nth-child(2){transition-delay:.15s}
+.reveal-stagger.in-view>*:nth-child(3){transition-delay:.3s}
+.reveal-stagger.in-view>*:nth-child(4){transition-delay:.45s}
+.reveal-stagger.in-view>*:nth-child(5){transition-delay:.6s}
+.reveal-stagger.in-view>*:nth-child(6){transition-delay:.75s}
 
-  .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0); }
-  .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0s; }
-  .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 0.12s; }
-  .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 0.24s; }
-  .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 0.36s; }
-  .reveal-stagger.in-view > *:nth-child(5) { transition-delay: 0.48s; }
-  .reveal-stagger.in-view > *:nth-child(6) { transition-delay: 0.6s; }
+/* ===== CHAR REVEAL ===== */
+.char-reveal .char{display:inline-block;opacity:0;transform:translateY(100%) rotateX(-80deg);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);transform-origin:bottom center}
+.in-view .char-reveal .char{opacity:1;transform:translateY(0) rotateX(0)}
 
-  .reel-frame { position: absolute; inset: 0; opacity: 0; transition: opacity 2s ease-in-out; }
-  .reel-frame.active { opacity: 1; }
-  .reel-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.55) brightness(0.38); transform: scale(1.06); }
-  .reel-frame.active img { animation: kenburns 9s ease-out forwards; }
-  @keyframes kenburns { 0% { transform: scale(1.06) translate(0,0); } 100% { transform: scale(1.18) translate(-2%,-2%); } }
+/* ===== GLITCH TEXT ===== */
+.glitch-hover{position:relative;transition:color .3s}
+.glitch-hover:hover{animation:glitch-text .3s steps(2) infinite}
+@keyframes glitch-text{0%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff}25%{text-shadow:-2px 0 #ff0000,2px 0 #00ffff}50%{text-shadow:2px 2px #ff0000,-2px -2px #00ffff}75%{text-shadow:-2px -1px #ff0000,2px 1px #00ffff}100%{text-shadow:0 0 transparent}}
 
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(10,10,10,0.93) 0%, rgba(10,10,10,0.4) 30%, rgba(10,10,10,0.55) 65%, rgba(10,10,10,0.98) 100%),
-      linear-gradient(90deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.15) 50%, rgba(10,10,10,0.55) 100%),
-      radial-gradient(ellipse at 25% 60%, rgba(255,84,0,0.15) 0%, transparent 55%);
-  }
+/* ===== HERO ===== */
+.reel-frame{position:absolute;inset:0;opacity:0;transition:opacity 2.5s cubic-bezier(.22,1,.36,1)}
+.reel-frame.active{opacity:1}
+.reel-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.5) brightness(.35);transform:scale(1.08)}
+.reel-frame.active img{animation:kenburns 10s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes kenburns{0%{transform:scale(1.08) translate(0,0)}100%{transform:scale(1.2) translate(-2%,-2%)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.93) 0%,rgba(10,10,10,.3) 30%,rgba(10,10,10,.45) 65%,rgba(10,10,10,.98) 100%),linear-gradient(90deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.1) 50%,rgba(10,10,10,.5) 100%),radial-gradient(ellipse at 25% 60%,rgba(255,84,0,.12) 0%,transparent 55%)}
+.headline-line{overflow:hidden;display:block}
+.headline-line span{display:inline-block;transform:translateY(120%) rotateX(-40deg);transition:transform 1.1s cubic-bezier(.22,1,.36,1);transform-origin:bottom}
+.in-view .headline-line span{transform:translateY(0) rotateX(0)}
+.headline-line:nth-child(2) span{transition-delay:.15s}
+.headline-line:nth-child(3) span{transition-delay:.3s}
+.type-cursor{display:inline-block;width:3px;height:.85em;background:var(--ac);margin-left:4px;vertical-align:text-bottom;animation:blink-cursor .8s step-end infinite}
+@keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}
+.scan-line{position:absolute;inset:0;pointer-events:none;z-index:2;background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px)}
 
-  .flip-card { perspective: 1800px; height: 620px; }
-  .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.9s cubic-bezier(0.4,0.2,0.2,1); transform-style: preserve-3d; }
-  .flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-  .flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
-  .flip-back { transform: rotateY(180deg); }
+/* ===== MARQUEE ===== */
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-track{display:flex;animation:marquee 45s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
 
-  @keyframes pulse-cta {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,84,0,0.6), 0 0 40px rgba(255,84,0,0.25); }
-    50% { box-shadow: 0 0 0 16px rgba(255,84,0,0), 0 0 40px rgba(255,84,0,0.25); }
-  }
-  .pulse-btn { animation: pulse-cta 2.4s ease-out infinite; }
+/* ===== ANIMATED BORDERS ===== */
+.animated-border{position:relative;overflow:hidden}
+.animated-border::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--border-angle),transparent 40%,var(--ac) 50%,transparent 60%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rotate-border 4s linear infinite;opacity:0;transition:opacity .5s}
+.animated-border:hover::before{opacity:1}
+@keyframes rotate-border{to{--border-angle:360deg}}
 
-  .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; transform: translateY(110%); transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); z-index: 90; }
-  .sticky-cta.visible { transform: translateY(0); }
+/* ===== SERVICE CARDS ===== */
+.svc-card{background:var(--bg-c);border:1px solid var(--bd);transition:transform .6s cubic-bezier(.22,1,.36,1),border-color .5s,box-shadow .6s;position:relative;overflow:hidden;transform-style:preserve-3d;perspective:1000px}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--ac),transparent);transform:scaleX(0);transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-card:hover{transform:translateY(-12px);border-color:var(--ac-d);box-shadow:0 25px 60px rgba(0,0,0,.6),0 0 50px rgba(255,84,0,.1)}
+.svc-card .svc-img{transition:transform 1s cubic-bezier(.22,1,.36,1),filter .8s}
+.svc-card:hover .svc-img{transform:scale(1.1);filter:grayscale(40%) contrast(1.35) brightness(.75)}
+.svc-card .svc-content{transition:transform .6s cubic-bezier(.22,1,.36,1) .05s}
+.svc-card:hover .svc-content{transform:translateZ(20px)}
 
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .marquee-track { display: flex; animation: marquee 40s linear infinite; width: max-content; }
+/* ===== PORTFOLIO ===== */
+.portfolio-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.portfolio-gallery .pg-item{position:relative;overflow:hidden;aspect-ratio:1}
+.portfolio-gallery .pg-item.wide{grid-column:span 2;aspect-ratio:2/1}
+.portfolio-gallery .pg-item.tall{grid-row:span 2;aspect-ratio:1/2}
+.portfolio-gallery .pg-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.25) brightness(.5);transition:filter .8s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.portfolio-gallery .pg-item:hover img{filter:grayscale(20%) contrast(1.3) brightness(.7);transform:scale(1.08)}
+.portfolio-gallery .pg-item .pg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,10,10,.92) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;opacity:0;transition:opacity .6s}
+.portfolio-gallery .pg-item:hover .pg-overlay{opacity:1}
+.pg-overlay .pg-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ac);letter-spacing:.2em;margin-bottom:4px;transform:translateY(15px) scale(.9);transition:transform .6s cubic-bezier(.22,1,.36,1);opacity:.8}
+.pg-overlay .pg-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;transform:translateY(15px);transition:transform .6s cubic-bezier(.22,1,.36,1) .06s}
+.portfolio-gallery .pg-item:hover .pg-overlay .pg-tag,.portfolio-gallery .pg-item:hover .pg-overlay .pg-title{transform:translateY(0) scale(1);opacity:1}
 
-  .story-track { display: flex; gap: 1.5rem; cursor: grab; user-select: none; will-change: transform; padding: 0 2rem; }
-  .story-track.dragging { cursor: grabbing; }
-  .story-track * { pointer-events: none; }
-  .story-card { flex: 0 0 auto; width: 400px; background: var(--bg-card); border: 1px solid var(--border); transition: border-color 0.4s, transform 0.4s; }
-  .story-card:hover { border-color: var(--accent); }
+/* ===== FLIP CARDS ===== */
+.flip-card{perspective:2000px;height:620px;transform-style:preserve-3d}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 1s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip-card:hover .flip-card-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.flip-back{transform:rotateY(180deg)}
+.flip-back .flip-list li{opacity:0;transform:translateX(-20px);transition:opacity .4s,transform .4s}
+.flip-card:hover .flip-back .flip-list li{opacity:1;transform:translateX(0)}
+.flip-card:hover .flip-back .flip-list li:nth-child(1){transition-delay:.3s}
+.flip-card:hover .flip-back .flip-list li:nth-child(2){transition-delay:.4s}
+.flip-card:hover .flip-back .flip-list li:nth-child(3){transition-delay:.5s}
+.flip-card:hover .flip-back .flip-list li:nth-child(4){transition-delay:.6s}
+.flip-back .flip-tools{opacity:0;transform:translateY(10px);transition:opacity .5s .65s,transform .5s .65s}
+.flip-card:hover .flip-back .flip-tools{opacity:1;transform:translateY(0)}
 
-  .img-noir { filter: grayscale(100%) contrast(1.4) brightness(0.7); transition: filter 0.8s ease, transform 0.8s ease; }
-  .text-stroke { -webkit-text-stroke: 1.5px var(--silver-dim); color: transparent; }
-  .link-underline { position: relative; display: inline-block; }
-  .link-underline::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--accent); transition: width 0.4s ease; }
-  .link-underline:hover::after { width: 100%; }
-  .number-display { font-variant-numeric: tabular-nums; }
+/* ===== NOTCH ===== */
+.notch-corner{position:relative}
+.notch-corner::before,.notch-corner::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--ac);pointer-events:none;z-index:2;transition:width .4s,height .4s}
+.notch-corner:hover::before,.notch-corner:hover::after{width:22px;height:22px}
+.notch-corner::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.notch-corner::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
 
-  .form-input {
-    background: transparent; border: none; border-bottom: 1px solid var(--border-light); color: var(--fg);
-    padding: 0.85rem 0; font-family: 'Oswald', sans-serif; font-size: 1.15rem; width: 100%; transition: border-color 0.3s; letter-spacing: 0.04em;
-  }
-  .form-input:focus { outline: none; border-color: var(--accent); }
-  .form-input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.85rem; }
+/* ===== PROCESS ===== */
+.process-step{position:relative;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.process-step:hover{transform:translateY(-10px) scale(1.02)}
+.process-num{font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:1;color:var(--ac);opacity:.12;position:absolute;top:-10px;left:-5px;transition:opacity .5s,transform .5s}
+.process-step:hover .process-num{opacity:.3;transform:translateX(5px) scale(1.05)}
+.process-connector{position:relative}
+.process-connector::after{content:'';position:absolute;top:50%;right:-1.5rem;width:3rem;height:1px;background:linear-gradient(90deg,var(--ac),transparent);transition:width .5s}
+.process-connector:hover::after{width:5rem}
+@media(max-width:1023px){.process-connector::after{display:none}}
 
-  .goal-pill {
-    cursor: pointer; padding: 0.55rem 1.1rem; border: 1px solid var(--border-light); background: transparent;
-    color: var(--fg-dim); font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.3s;
-  }
-  .goal-pill:hover { border-color: var(--silver-dim); color: var(--fg); }
-  .goal-pill.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+/* ===== TESTIMONIALS ===== */
+.testi-card{background:var(--bg-c);border:1px solid var(--bd);transition:transform .6s cubic-bezier(.22,1,.36,1),border-color .5s,box-shadow .6s;position:relative;overflow:hidden}
+.testi-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,84,0,.03) 0%,transparent 50%);opacity:0;transition:opacity .5s}
+.testi-card:hover::before{opacity:1}
+.testi-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--ac-d);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.testi-card .quote-mark{font-family:'Bebas Neue',sans-serif;font-size:6rem;line-height:1;color:var(--ac);opacity:.15;position:absolute;top:-10px;left:16px;transition:opacity .5s,transform .5s}
+.testi-card:hover .quote-mark{opacity:.3;transform:rotate(-5deg) scale(1.1)}
 
-  @keyframes wave { 0%, 100% { height: 3px; } 50% { height: 16px; } }
-  .wave-bar { display: inline-block; width: 2px; background: var(--accent); margin: 0 1.5px; height: 3px; vertical-align: bottom; }
-  .unmuted .wave-bar { animation: wave 0.7s ease-in-out infinite; }
-  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+/* ===== SOCIAL ICONS ===== */
+.social-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px solid var(--bd-l);transition:all .5s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+.social-icon::before{content:'';position:absolute;inset:0;background:var(--ac);transform:scaleY(0);transform-origin:bottom;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.social-icon:hover::before{transform:scaleY(1)}
+.social-icon:hover{border-color:var(--ac);transform:translateY(-4px) scale(1.05);box-shadow:0 10px 30px rgba(255,84,0,.2)}
+.social-icon i{position:relative;z-index:1;transition:color .4s,transform .4s}
+.social-icon:hover i{color:#000;transform:scale(1.15) rotate(-5deg)}
 
-  .program-card { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
-  .program-card:hover { transform: translateY(-8px); }
-  .program-card .program-img { transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.8s; }
-  .program-card:hover .program-img { transform: scale(1.08); filter: grayscale(80%) contrast(1.4) brightness(0.7); }
+/* ===== RIPPLE BUTTON ===== */
+.ripple-btn{position:relative;overflow:hidden}
+.ripple-btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:ripple-anim .6s ease-out forwards;pointer-events:none}
+@keyframes ripple-anim{to{transform:scale(4);opacity:0}}
 
-  .notch-corner { position: relative; }
-  .notch-corner::before, .notch-corner::after { content: ''; position: absolute; width: 14px; height: 14px; border: 1px solid var(--accent); pointer-events: none; }
-  .notch-corner::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-  .notch-corner::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+/* ===== MAGNETIC ===== */
+.mag-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+.mag-btn:hover{box-shadow:0 0 40px rgba(255,84,0,.3)}
+@keyframes pulse-cta{0%,100%{box-shadow:0 0 0 0 rgba(255,84,0,.55),0 0 40px rgba(255,84,0,.2)}50%{box-shadow:0 0 0 14px rgba(255,84,0,0),0 0 40px rgba(255,84,0,.2)}}
+.pulse-btn{animation:pulse-cta 2.4s ease-out infinite}
 
-  @keyframes rec-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .rec-dot { animation: rec-blink 1.5s ease-in-out infinite; }
+/* ===== FORM ===== */
+.form-input{background:transparent;border:none;border-bottom:1px solid var(--bd-l);color:var(--fg);padding:.85rem 0;font-family:'Oswald',sans-serif;font-size:1.15rem;width:100%;transition:border-color .4s,box-shadow .4s;letter-spacing:.04em}
+.form-input:focus{outline:none;border-color:var(--ac);box-shadow:0 2px 0 0 var(--ac)}
+.form-input::placeholder{color:var(--mt);text-transform:uppercase;letter-spacing:.15em;font-size:.85rem}
+.form-group{position:relative}
+.form-group .form-label{font-mono;font-size:10px;color:var(--mt);letter-spacing:.2em;text-transform:uppercase;transition:color .3s,transform .3s;display:block;margin-bottom:8px}
+.form-group:focus-within .form-label{color:var(--ac);transform:translateX(4px)}
 
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: var(--bg-darker); }
-  ::-webkit-scrollbar-thumb { background: var(--accent-dim); }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+/* ===== GOAL PILLS ===== */
+.goal-pill{cursor:pointer;padding:.55rem 1.1rem;border:1px solid var(--bd-l);background:transparent;color:var(--fg-d);font-family:'Oswald',sans-serif;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;transition:all .4s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+.goal-pill::before{content:'';position:absolute;inset:0;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.goal-pill:hover::before{transform:scaleX(1)}
+.goal-pill.active{background:var(--ac);border-color:var(--ac);color:#000;font-weight:600}
+.goal-pill span{position:relative;z-index:1}
 
-  .toast {
-    position: fixed; top: 90px; right: 24px; background: var(--bg-card); border: 1px solid var(--accent);
-    border-left: 3px solid var(--accent); padding: 1rem 1.5rem; z-index: 150;
-    transform: translateX(120%); transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); max-width: 360px;
-  }
-  .toast.visible { transform: translateX(0); }
+/* ===== BOOKING FRAME ===== */
+.booking-frame{background:linear-gradient(135deg,rgba(255,84,0,.04) 0%,transparent 50%,rgba(255,84,0,.02) 100%);border:1px solid var(--bd);position:relative}
+.booking-frame::before{content:'';position:absolute;top:0;left:0;width:60px;height:60px;border-top:2px solid var(--ac);border-left:2px solid var(--ac);transition:width .5s,height .5s}
+.booking-frame:hover::before{width:80px;height:80px}
+.booking-frame::after{content:'';position:absolute;bottom:0;right:0;width:60px;height:60px;border-bottom:2px solid var(--ac);border-right:2px solid var(--ac);transition:width .5s,height .5s}
+.booking-frame:hover::after{width:80px;height:80px}
 
-  .headline-line { overflow: hidden; display: block; }
-  .headline-line span { display: inline-block; transform: translateY(110%); transition: transform 1s cubic-bezier(0.22,1,0.36,1); }
-  .in-view .headline-line span { transform: translateY(0); }
-  .headline-line:nth-child(2) span { transition-delay: 0.1s; }
-  .headline-line:nth-child(3) span { transition-delay: 0.2s; }
+/* ===== MISC ===== */
+.img-noir{filter:grayscale(100%) contrast(1.4) brightness(.7);transition:filter .7s,transform .7s}
+.text-stroke{-webkit-text-stroke:1.5px var(--sv-d);color:transparent;transition:-webkit-text-stroke-color .3s}
+.text-stroke:hover{-webkit-text-stroke-color:var(--ac)}
+.link-underline{position:relative;display:inline-block}
+.link-underline::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--ac);transition:width .5s cubic-bezier(.22,1,.36,1)}
+.link-underline:hover::after{width:100%}
+.nav-link{position:relative;font-family:'Oswald',sans-serif;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-d);transition:color .3s;padding:4px 0}
+.nav-link:hover{color:var(--fg)}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--ac);transition:width .4s cubic-bezier(.22,1,.36,1)}
+.nav-link:hover::after{width:100%}
+.nav-link::before{content:'';position:absolute;left:-14px;top:50%;transform:translateY(-50%) scaleY(0);width:4px;height:4px;background:var(--ac);transition:transform .3s;border-radius:50%}
+.nav-link:hover::before{transform:translateY(-50%) scaleY(1)}
+.section-marker{display:inline-flex;align-items:center;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.2em;color:var(--ac);text-transform:uppercase}
+.section-marker::before{content:'';width:32px;height:1px;background:var(--ac);transition:width .5s}
+.section-marker:hover::before{width:50px}
+.info-card{background:var(--bg-c);border:1px solid var(--bd);transition:border-color .5s,background .5s,transform .4s,box-shadow .4s}
+.info-card:hover{border-color:var(--ac-d);background:var(--bg-ch);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.coach-img-wrap{position:relative;height:65%;overflow:hidden}
+.coach-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.35) brightness(.75);transition:filter .7s,transform 1s cubic-bezier(.22,1,.36,1)}
+.flip-card:hover .coach-img-wrap img{filter:grayscale(60%) contrast(1.4) brightness(.85);transform:scale(1.05)}
+.about-img-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.about-img-grid img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.3) brightness(.6);transition:filter .7s,transform .7s cubic-bezier(.22,1,.36,1)}
+.about-img-grid:hover img{filter:grayscale(50%) contrast(1.35) brightness(.75)}
+.about-img-grid:hover img:hover{transform:scale(1.05)}
+.about-img-grid .span-2{grid-column:span 2}
+.progress-bar{height:1px;background:rgba(255,255,255,.1);overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--ac);width:0%;transition:width .1s linear}
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;transform:translateY(110%);transition:transform .6s cubic-bezier(.22,1,.36,1);z-index:90}
+.sticky-cta.visible{transform:translateY(0)}
+.toast{position:fixed;top:90px;right:24px;background:var(--bg-c);border:1px solid var(--ac);border-left:3px solid var(--ac);padding:1rem 1.5rem;z-index:150;transform:translateX(120%);transition:transform .5s cubic-bezier(.22,1,.36,1);max-width:360px}
+.toast.visible{transform:translateX(0)}
+.mobile-menu{position:fixed;inset:0;background:rgba(5,5,5,.97);backdrop-filter:blur(20px);z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;transform:translateX(100%);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.08em;color:var(--fg-d);transition:color .3s,transform .4s cubic-bezier(.22,1,.36,1);opacity:0;transform:translateX(30px)}
+.mobile-menu.open a{opacity:1;transform:translateX(0)}
+.mobile-menu.open a:nth-child(2){transition-delay:.05s}
+.mobile-menu.open a:nth-child(3){transition-delay:.1s}
+.mobile-menu.open a:nth-child(4){transition-delay:.15s}
+.mobile-menu.open a:nth-child(5){transition-delay:.2s}
+.mobile-menu.open a:nth-child(6){transition-delay:.25s}
+.mobile-menu.open a:nth-child(7){transition-delay:.3s}
+.mobile-menu a:hover{color:var(--ac);transform:translateX(10px)}
+.number-display{font-variant-numeric:tabular-nums}
+@keyframes counter-glow{0%,100%{text-shadow:0 0 20px rgba(255,84,0,.15)}50%{text-shadow:0 0 50px rgba(255,84,0,.35)}}
+.counter-glow{animation:counter-glow 3s ease-in-out infinite}
+.bg-textured{background-color:var(--bg);background-image:radial-gradient(circle at 20% 30%,rgba(255,84,0,.04) 0%,transparent 40%),radial-gradient(circle at 80% 70%,rgba(80,80,80,.04) 0%,transparent 40%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23r)' opacity='0.3'/></svg>");background-blend-mode:normal,normal,overlay}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg-d)}
+::-webkit-scrollbar-thumb{background:var(--ac-d)}
+::-webkit-scrollbar-thumb:hover{background:var(--ac)}
 
-  .section-marker {
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase;
-  }
-  .section-marker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+/* ===== FLOATING SHAPES ===== */
+@keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-25px) rotate(5deg)}}
+@keyframes float-medium{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(-3deg)}}
+@keyframes float-fast{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-12px) rotate(3deg)}66%{transform:translateY(-20px) rotate(-2deg)}}
+.float-shape{position:absolute;pointer-events:none;z-index:1}
+.float-slow{animation:float-slow 7s ease-in-out infinite}
+.float-medium{animation:float-medium 5s ease-in-out infinite}
+.float-fast{animation:float-fast 4s ease-in-out infinite}
+@keyframes orb-move{0%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-20px) scale(1.1)}50%{transform:translate(-10px,20px) scale(.95)}75%{transform:translate(-30px,-10px) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orb-move 14s ease-in-out infinite}
 
-  .coach-img-wrap { position: relative; height: 65%; overflow: hidden; }
-  .coach-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.35) brightness(0.78); transition: filter 0.6s, transform 0.8s; }
-  .flip-card:hover .coach-img-wrap img, .flip-card.flipped .coach-img-wrap img { filter: grayscale(70%) contrast(1.4) brightness(0.85); }
+/* ===== WAVE BARS ===== */
+@keyframes wave{0%,100%{height:3px}50%{height:16px}}
+.wave-bar{display:inline-block;width:2px;background:var(--ac);margin:0 1.5px;height:3px;vertical-align:bottom}
+.unmuted .wave-bar{animation:wave .7s ease-in-out infinite}
+.wave-bar:nth-child(2){animation-delay:.1s}
+.wave-bar:nth-child(3){animation-delay:.2s}
+.wave-bar:nth-child(4){animation-delay:.3s}
+.wave-bar:nth-child(5){animation-delay:.4s}
+@keyframes rec-blink{0%,100%{opacity:1}50%{opacity:.3}}
+.rec-dot{animation:rec-blink 1.5s ease-in-out infinite}
 
-  .booking-frame {
-    background: linear-gradient(135deg, rgba(255,84,0,0.04) 0%, transparent 50%, rgba(255,84,0,0.02) 100%);
-    border: 1px solid var(--border); position: relative;
-  }
-  .booking-frame::before { content: ''; position: absolute; top: 0; left: 0; width: 60px; height: 60px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
-  .booking-frame::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60px; height: 60px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+/* ===== SECTION DIVIDER ===== */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--bd-l) 20%,var(--ac) 50%,var(--bd-l) 80%,transparent);opacity:.5;transition:opacity .5s}
+.section-divider:hover{opacity:1}
 
-  .scan-line {
-    position: absolute; inset: 0; pointer-events: none; z-index: 2;
-    background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
-  }
-
-  .bg-textured {
-    background-color: var(--bg);
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,84,0,0.05) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(80,80,80,0.05) 0%, transparent 40%),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23r)' opacity='0.35'/></svg>");
-    background-blend-mode: normal, normal, overlay;
-  }
-
-  .info-card { background: var(--bg-card); border: 1px solid var(--border); transition: border-color 0.4s, background 0.4s; }
-  .info-card:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); }
-
-  .progress-bar { height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
-  .progress-bar-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s linear; }
-
-  .nav-link {
-    position: relative; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); transition: color 0.3s;
-  }
-  .nav-link:hover { color: var(--fg); }
-  .nav-link::before {
-    content: ''; position: absolute; left: -14px; top: 50%; transform: translateY(-50%) scaleY(0);
-    width: 4px; height: 4px; background: var(--accent); transition: transform 0.3s;
-  }
-  .nav-link:hover::before { transform: translateY(-50%) scaleY(1); }
-
-  .mobile-menu {
-    position: fixed; inset: 0; background: rgba(5,5,5,0.97); backdrop-filter: blur(20px); z-index: 100;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
-    transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  .mobile-menu.open { transform: translateX(0); }
-  .mobile-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.08em; color: var(--fg-dim); transition: color 0.3s; }
-  .mobile-menu a:hover { color: var(--accent); }
-
-  .process-connector { position: relative; }
-  .process-connector::after {
-    content: ''; position: absolute; top: 50%; right: -1.5rem; width: 3rem; height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-  @media (max-width: 1023px) { .process-connector::after { display: none; } }
-
-  /* About section image */
-  .about-img-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-  }
-  .about-img-grid img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%) contrast(1.3) brightness(0.65);
-    transition: filter 0.6s;
-  }
-  .about-img-grid:hover img { filter: grayscale(60%) contrast(1.35) brightness(0.75); }
-  .about-img-grid .span-2 { grid-column: span 2; }
-
-  /* Logo styling */
-  .jm-logo {
-    height: 38px;
-    width: auto;
-    filter: brightness(1.1);
-    transition: filter 0.3s;
-  }
-  .jm-logo:hover { filter: brightness(1.3); }
-  .jm-logo-footer {
-    height: 44px;
-    width: auto;
-    filter: brightness(1.1);
-  }
-  .jm-logo-mobile {
-    height: 30px;
-    width: auto;
-    filter: brightness(1.1);
-  }
-
-  /* Portfolio gallery grid */
-  .portfolio-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-  .portfolio-gallery .pg-item {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1;
-  }
-  .portfolio-gallery .pg-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
-  .portfolio-gallery .pg-item.tall { grid-row: span 2; aspect-ratio: 1/2; }
-  .portfolio-gallery .pg-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%) contrast(1.25) brightness(0.55);
-    transition: filter 0.7s, transform 0.7s;
-  }
-  .portfolio-gallery .pg-item:hover img {
-    filter: grayscale(40%) contrast(1.3) brightness(0.75);
-    transform: scale(1.06);
-  }
-  .portfolio-gallery .pg-item .pg-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.85) 100%);
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;
-    opacity: 0; transition: opacity 0.5s;
-  }
-  .portfolio-gallery .pg-item:hover .pg-overlay { opacity: 1; }
-
-  @media (max-width: 768px) {
-    .flip-card { height: 500px; }
-    .story-card { width: 300px; }
-    .portfolio-gallery { grid-template-columns: 1fr 1fr; }
-    .portfolio-gallery .pg-item.wide { grid-column: span 2; }
-    .portfolio-gallery .pg-item.tall { grid-row: span 1; aspect-ratio: 1; }
-  }
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){.flip-card{height:500px}.portfolio-gallery{grid-template-columns:1fr 1fr}.portfolio-gallery .pg-item.wide{grid-column:span 2}.portfolio-gallery .pg-item.tall{grid-row:span 1;aspect-ratio:1}}
+@media(max-width:640px){.portfolio-gallery{grid-template-columns:1fr}.portfolio-gallery .pg-item.wide{grid-column:span 1;aspect-ratio:16/9}}
 </style>
 </head>
 <body class="bg-textured">
-  <div class="grain" id="grain"></div>
 
-  <!-- Toast -->
-  <div class="toast" id="toast">
-    <div class="font-heading text-sm tracking-wider text-[var(--fg)]">Message Sent Successfully</div>
-    <div class="font-mono text-[11px] text-[var(--muted)] mt-1">Jan Muhammad will get back to you within 24 hours.</div>
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-logo">
+    <div class="preloader-ring"></div>
+    <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM">
   </div>
+  <div class="preloader-bar-wrap"><div class="preloader-bar" id="preloaderBar"></div></div>
+  <div class="preloader-pct" id="preloaderPct">000%</div>
+</div>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button id="closeMenu" class="absolute top-6 right-6 text-[var(--fg)] text-2xl"><i class="fas fa-times"></i></button>
-    <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo-mobile mb-4">
-    <a href="#about" onclick="closeMobileMenu()">About</a>
-    <a href="#services" onclick="closeMobileMenu()">Services</a>
-    <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
-    <a href="#process" onclick="closeMobileMenu()">Process</a>
-    <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
-    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- GRAIN -->
+<div class="grain"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="font-heading text-sm tracking-wider text-[var(--fg)]"><i class="fas fa-check-circle text-[var(--ac)] mr-2"></i>Message Sent Successfully</div>
+  <div class="font-mono text-[11px] text-[var(--mt)] mt-1">Jan Muhammad will respond within 24 hours.</div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button id="closeMenu" class="absolute top-6 right-6 text-[var(--fg)] text-2xl hover:text-[var(--ac)] transition-colors"><i class="fas fa-times"></i></button>
+  <div class="jm-logo-wrap mobile-logo logo-enter mb-6"><div class="jm-logo-inner"><img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo"></div><div class="logo-shimmer"></div></div>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
+  <a href="#process" onclick="closeMobileMenu()">Process</a>
+  <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <div class="flex gap-4 mt-4">
+    <a href="https://www.instagram.com/janmbapra/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] text-xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
   </div>
+</div>
 
-  <!-- Top Nav -->
-  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/50 border-b border-white/5">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo">
-        <div>
-          <div class="font-display text-xl md:text-2xl leading-none tracking-wider">JAN M DIGITAL GROWTH</div>
-          <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.3em] mt-0.5">DESIGN · DEVELOP · RANK</div>
-        </div>
-      </a>
-
-      <nav class="hidden lg:flex items-center gap-10">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#portfolio" class="nav-link">Portfolio</a>
-        <a href="#process" class="nav-link">Process</a>
-        <a href="#testimonials" class="nav-link">Testimonials</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
-
-      <div class="flex items-center gap-5">
-        <div class="hidden md:flex items-center gap-2 font-mono text-[11px] text-[var(--muted)]">
-          <i class="fas fa-location-dot text-[var(--accent)]"></i>
-          <span>KARACHI, PAKISTAN</span>
-        </div>
-        <a href="#contact" class="hidden sm:inline-block font-heading text-xs tracking-[0.2em] uppercase text-black bg-[var(--silver)] px-5 py-2.5 hover:bg-white transition-colors">
-          Get a Quote
-        </a>
-        <button id="hamburger" class="lg:hidden text-[var(--fg)] text-xl"><i class="fas fa-bars"></i></button>
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/50 border-b border-white/5" id="mainNav">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="jm-logo-wrap logo-enter logo-float" id="navLogo">
+        <div class="jm-logo-inner"><img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo"></div>
+        <div class="logo-shimmer"></div>
       </div>
+      <div>
+        <div class="font-display text-xl md:text-2xl leading-none tracking-wider">JAN M DIGITAL</div>
+        <div class="font-mono text-[10px] text-[var(--mt)] tracking-[.3em] mt-0.5">DESIGN · DEVELOP · RANK</div>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-10">
+      <a href="#about" class="nav-link cursor-hover-target">About</a>
+      <a href="#services" class="nav-link cursor-hover-target">Services</a>
+      <a href="#portfolio" class="nav-link cursor-hover-target">Portfolio</a>
+      <a href="#process" class="nav-link cursor-hover-target">Process</a>
+      <a href="#testimonials" class="nav-link cursor-hover-target">Testimonials</a>
+      <a href="#contact" class="nav-link cursor-hover-target">Contact</a>
+    </nav>
+    <div class="flex items-center gap-5">
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://www.instagram.com/janmbapra/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] transition-colors cursor-hover-target"><i class="fab fa-instagram text-sm"></i></a>
+        <a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] transition-colors cursor-hover-target"><i class="fab fa-linkedin-in text-sm"></i></a>
+      </div>
+      <div class="hidden md:flex items-center gap-2 font-mono text-[11px] text-[var(--mt)]"><i class="fas fa-location-dot text-[var(--ac)]"></i><span>KARACHI, PK</span></div>
+      <a href="#contact" class="hidden sm:inline-block font-heading text-xs tracking-[.2em] uppercase text-black bg-[var(--sv)] px-5 py-2.5 hover:bg-white transition-colors mag-btn ripple-btn cursor-hover-target">Get a Quote</a>
+      <button id="hamburger" class="lg:hidden text-[var(--fg)] text-xl hover:text-[var(--ac)] transition-colors"><i class="fas fa-bars"></i></button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="relative h-screen min-h-[760px] w-full overflow-hidden" id="hero">
-    <div class="absolute inset-0" id="reelContainer">
-      <div class="reel-frame active">
-        <img src="https://picsum.photos/seed/jmDesignX1/1920/1080.jpg" alt="Graphics designing workspace">
-      </div>
-      <div class="reel-frame">
-        <img src="https://picsum.photos/seed/jmCodeX2/1920/1080.jpg" alt="Web development">
-      </div>
-      <div class="reel-frame">
-        <img src="https://picsum.photos/seed/jmSeoX3/1920/1080.jpg" alt="SEO analytics">
-      </div>
-      <div class="reel-frame">
-        <img src="https://picsum.photos/seed/jmBrandX4/1920/1080.jpg" alt="Brand identity">
-      </div>
-      <div class="reel-frame">
-        <img src="https://picsum.photos/seed/jmGrowthX5/1920/1080.jpg" alt="Digital growth">
-      </div>
+<!-- HERO -->
+<section class="relative h-screen min-h-[760px] w-full overflow-hidden" id="hero">
+  <div class="absolute inset-0" id="reelContainer">
+    <div class="reel-frame active"><img src="https://picsum.photos/seed/graphicdesignstudio/1920/1080.jpg" alt="Graphics designing workspace"></div>
+    <div class="reel-frame"><img src="https://picsum.photos/seed/webdevcode/1920/1080.jpg" alt="Web development"></div>
+    <div class="reel-frame"><img src="https://picsum.photos/seed/seodashboard/1920/1080.jpg" alt="SEO analytics dashboard"></div>
+    <div class="reel-frame"><img src="https://picsum.photos/seed/brandidentity/1920/1080.jpg" alt="Brand identity design"></div>
+    <div class="reel-frame"><img src="https://picsum.photos/seed/digitalmarketing/1920/1080.jpg" alt="Digital marketing growth"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="scan-line"></div>
+  <div class="float-shape float-slow" style="top:20%;right:15%;width:60px;height:60px;border:1px solid rgba(255,84,0,.15);border-radius:2px;transform:rotate(45deg)"></div>
+  <div class="float-shape float-medium" style="top:60%;left:8%;width:30px;height:30px;background:rgba(255,84,0,.08);border-radius:50%"></div>
+  <div class="float-shape float-fast" style="top:35%;left:45%;width:1px;height:80px;background:linear-gradient(180deg,transparent,rgba(255,84,0,.2),transparent)"></div>
+  <div class="float-shape float-slow" style="top:75%;right:30%;width:40px;height:40px;border:1px solid rgba(255,84,0,.08);border-radius:50%;animation-delay:-2s"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(255,84,0,.06);top:30%;left:10%"></div>
+  <div class="glow-orb" style="width:200px;height:200px;background:rgba(255,84,0,.04);top:60%;right:15%;animation-delay:-4s"></div>
+  <div class="relative z-10 h-full max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col justify-end pb-20 pt-32">
+    <div class="absolute top-32 right-6 lg:right-10 flex items-center gap-6 z-20">
+      <div class="hidden md:flex items-center gap-3 font-mono text-[11px] text-[var(--fg-d)]"><span class="rec-dot w-2 h-2 bg-[var(--ac)] rounded-full inline-block"></span><span class="tracking-[.2em]">PORTFOLIO · LIVE</span></div>
+      <button id="muteToggle" class="flex items-center gap-3 px-4 py-2.5 border border-white/20 hover:border-[var(--ac)] bg-black/40 backdrop-blur-sm transition-all duration-300 group"><div class="flex items-end gap-[2px] h-4"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></div><span class="font-mono text-[10px] tracking-[.2em] uppercase" id="muteLabel">Muted</span><i class="fas fa-volume-xmark text-xs text-[var(--mt)] group-hover:text-[var(--ac)]" id="muteIcon"></i></button>
     </div>
-
-    <div class="hero-overlay"></div>
-    <div class="scan-line"></div>
-
-    <div class="relative z-10 h-full max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-col justify-end pb-20 pt-32">
-
-      <div class="absolute top-32 right-6 lg:right-10 flex items-center gap-6 z-20">
-        <div class="hidden md:flex items-center gap-3 font-mono text-[11px] text-[var(--fg-dim)]">
-          <span class="rec-dot w-2 h-2 bg-[var(--accent)] rounded-full"></span>
-          <span class="tracking-[0.2em]">PORTFOLIO · LIVE</span>
-        </div>
-        <button id="muteToggle" class="unmute-toggle flex items-center gap-3 px-4 py-2.5 border border-white/20 hover:border-[var(--accent)] bg-black/40 backdrop-blur-sm transition-colors group">
-          <div class="flex items-end gap-[2px] h-4">
-            <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
-          </div>
-          <span class="font-mono text-[10px] tracking-[0.2em] uppercase" id="muteLabel">Muted</span>
-          <i class="fas fa-volume-xmark text-xs text-[var(--muted)] group-hover:text-[var(--accent)]" id="muteIcon"></i>
-        </button>
-      </div>
-
-      <div class="reveal in-view max-w-5xl">
-        <div class="section-marker mb-6"><span>JAN MUHAMMAD · KARACHI, PK</span></div>
-        <h1 class="font-display text-[12vw] md:text-[9vw] lg:text-[7.5vw] leading-[0.85] mb-8">
-          <span class="headline-line"><span>DESIGN THAT</span></span>
-          <span class="headline-line"><span class="text-stroke">COMMANDS</span></span>
-          <span class="headline-line"><span>ATTENTION. <span class="text-[var(--accent)]">GROWTH</span> THAT FOLLOWS.</span></span>
-        </h1>
-        <p class="max-w-xl text-[var(--fg-dim)] text-base md:text-lg leading-relaxed font-body">
-          I'm Jan Muhammad — a one-man digital army based in Karachi. I craft visuals that stop the scroll, build websites that convert, and deploy SEO strategies that put you on the first page. <span class="text-[var(--fg)]">No fluff. Just results.</span>
-        </p>
-      </div>
-
-      <div class="mt-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-        <div class="flex items-center gap-4">
-          <div class="flex -space-x-3">
-            <img src="https://picsum.photos/seed/jmCl1/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
-            <img src="https://picsum.photos/seed/jmCl2/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
-            <img src="https://picsum.photos/seed/jmCl3/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
-            <img src="https://picsum.photos/seed/jmCl4/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
-            <div class="w-12 h-12 rounded-full border-2 border-[var(--bg)] bg-[var(--accent)] flex items-center justify-center font-display text-base text-black">+50</div>
-          </div>
-          <div>
-            <div class="font-mono text-[10px] tracking-[0.2em] text-[var(--muted)] uppercase">Happy Clients</div>
-            <div class="font-heading text-sm text-[var(--fg)] tracking-wider">Businesses trusting Jan M</div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-6 max-w-md w-full lg:w-auto">
-          <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em]"><span id="chapterNum">01</span> / 05</div>
-          <div class="flex-1 progress-bar"><div class="progress-bar-fill" id="reelProgress"></div></div>
-          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">WORK REEL</div>
-        </div>
-      </div>
+    <div class="reveal in-view max-w-5xl">
+      <div class="section-marker mb-6"><span>JAN MUHAMMAD · KARACHI, PK</span></div>
+      <h1 class="font-display text-[12vw] md:text-[9vw] lg:text-[7.5vw] leading-[.85] mb-8">
+        <span class="headline-line"><span>DESIGN THAT</span></span>
+        <span class="headline-line"><span class="text-stroke glitch-hover">COMMANDS</span></span>
+        <span class="headline-line"><span>ATTENTION. <span class="text-[var(--ac)]" id="heroTyping">GROWTH</span><span class="type-cursor"></span> THAT FOLLOWS.</span></span>
+      </h1>
+      <p class="max-w-xl text-[var(--fg-d)] text-base md:text-lg leading-relaxed font-body">I'm Jan Muhammad — a one-man digital army based in Karachi. I craft visuals that stop the scroll, build websites that convert, and deploy SEO strategies that put you on the first page. <span class="text-[var(--ac)]">No fluff. Just results.</span></p>
     </div>
-
-    <div class="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-black/60 backdrop-blur-sm py-3 overflow-hidden z-10">
-      <div class="marquee-track font-display text-sm tracking-[0.25em] text-[var(--silver-dim)]">
-        <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">BRAND IDENTITY</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">LOGO DESIGN</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">BRAND IDENTITY</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">LOGO DESIGN</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--accent)]">/</span>
-        <span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--accent)]">/</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="border-y border-[var(--border)] bg-[var(--bg-darker)] relative overflow-hidden">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
-      <div class="reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
-        <div class="border-l border-[var(--border-light)] pl-6">
-          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="150">0</div>
-          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">Projects Delivered</div>
-        </div>
-        <div class="border-l border-[var(--border-light)] pl-6">
-          <div class="font-display text-6xl md:text-7xl text-[var(--accent)] number-display" data-count="50">0</div>
-          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">Happy Clients</div>
-        </div>
-        <div class="border-l border-[var(--border-light)] pl-6">
-          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="35">0</div>
-          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">#1 Rankings Achieved</div>
-        </div>
-        <div class="border-l border-[var(--border-light)] pl-6">
-          <div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display" data-count="98">0</div>
-          <div class="font-mono text-[11px] text-[var(--muted)] tracking-[0.2em] uppercase mt-2">% Client Retention</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT JAN MUHAMMAD -->
-  <section class="relative py-28 lg:py-36" id="about">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-
-      <div class="reveal grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-        <!-- Image grid -->
-        <div class="lg:col-span-5 order-2 lg:order-1">
-          <div class="about-img-grid" style="height: 520px;">
-            <div class="span-2" style="height: 55%;">
-              <img src="https://picsum.photos/seed/janWorkspace/800/500.jpg" alt="Jan Muhammad at workspace">
-            </div>
-            <div style="height: 42%;">
-              <img src="https://picsum.photos/seed/janDesigning/400/400.jpg" alt="Designing work">
-            </div>
-            <div style="height: 42%;">
-              <img src="https://picsum.photos/seed/janCoding/400/400.jpg" alt="Coding work">
-            </div>
-          </div>
-        </div>
-
-        <!-- Text content -->
-        <div class="lg:col-span-7 order-1 lg:order-2">
-          <div class="section-marker mb-6"><span>01 — The Person Behind The Pixels</span></div>
-          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9] mb-8">
-            I'M <span class="text-[var(--accent)]">JAN MUHAMMAD.</span><br>
-            <span class="text-stroke">I BUILD DIGITAL EMPIRES.</span>
-          </h2>
-          <div class="space-y-5 text-[var(--fg-dim)] text-base md:text-lg leading-relaxed max-w-2xl">
-            <p>
-              I started my journey in digital design and development out of pure obsession — the drive to create things that don't just look beautiful, but actually <span class="text-[var(--fg)]">perform</span>. Based in Karachi, Pakistan, I've spent years mastering three core disciplines that most agencies split across entire teams.
-            </p>
-            <p>
-              From crafting brand identities that make businesses unforgettable, to building blazing-fast websites that convert visitors into customers, to deploying SEO strategies that consistently land my clients on Google's first page — <span class="text-[var(--fg)]">I do it all, and I do it with precision</span>.
-            </p>
-            <p>
-              I'm not a big agency with layers of account managers. When you work with me, you work directly with the person designing your logo, writing your code, and optimizing your rankings. That's why my clients stay — <span class="text-[var(--accent)]">98% retention rate</span> isn't a marketing number, it's a relationship metric.
-            </p>
-          </div>
-
-          <div class="mt-10 flex flex-wrap gap-4">
-            <div class="info-card px-5 py-4 flex items-center gap-3">
-              <i class="fas fa-palette text-[var(--accent)]"></i>
-              <div>
-                <div class="font-heading text-sm tracking-wider">Graphics Expert</div>
-                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">PS · AI · CANVA · FIGMA</div>
-              </div>
-            </div>
-            <div class="info-card px-5 py-4 flex items-center gap-3">
-              <i class="fas fa-code text-[var(--accent)]"></i>
-              <div>
-                <div class="font-heading text-sm tracking-wider">Full-Stack Dev</div>
-                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">HTML · CSS · JS · WP · REACT</div>
-              </div>
-            </div>
-            <div class="info-card px-5 py-4 flex items-center gap-3">
-              <i class="fas fa-chart-line text-[var(--accent)]"></i>
-              <div>
-                <div class="font-heading text-sm tracking-wider">SEO Strategist</div>
-                <div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em]">AHREFS · SEMRUSH · GA4</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="services">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-
-      <div class="reveal grid lg:grid-cols-12 gap-8 mb-20">
-        <div class="lg:col-span-5">
-          <div class="section-marker mb-6"><span>02 — Services</span></div>
-          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-            Three pillars.<br>
-            <span class="text-stroke">One mission:</span><br>
-            <span class="text-[var(--accent)]">your digital growth.</span>
-          </h2>
-        </div>
-        <div class="lg:col-span-6 lg:col-start-7 flex flex-col justify-end">
-          <p class="text-[var(--fg-dim)] text-lg leading-relaxed mb-6">
-            Every service I offer is engineered around a single objective — measurable, aggressive growth for your brand. I don't just deliver work. I deliver impact.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <span class="goal-pill active">All Services</span>
-            <span class="goal-pill">Design</span>
-            <span class="goal-pill">Development</span>
-            <span class="goal-pill">SEO</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal-stagger grid md:grid-cols-3 gap-6 lg:gap-8">
-
-        <!-- GRAPHICS DESIGNING -->
-        <article class="program-card info-card notch-corner group" data-service="design">
-          <div class="relative h-72 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmGraphicsSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="Graphics designing">
-            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
-            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">01 / DESIGN</div>
-            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">CREATIVE 100%</div>
-          </div>
-          <div class="p-7">
-            <h3 class="font-display text-4xl mb-3">GRAPHICS DESIGNING</h3>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
-              Logos, social media creatives, brand identities, flyers, banners, posters, and everything visual that makes your brand unforgettable. Bold, clean, conversion-focused design.
-            </p>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Turnaround</div><div class="font-heading text-base">2–5 DAYS</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Revisions</div><div class="font-heading text-base">UNLIMITED</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Deliverables</div><div class="font-heading text-base">PNG · SVG · PDF</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Tools</div><div class="font-heading text-base">PS · AI · CANVA</div></div>
-            </div>
-            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
-              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- WEB DEVELOPMENT -->
-        <article class="program-card info-card notch-corner group" data-service="development">
-          <div class="relative h-72 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmWebdevSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="Web development">
-            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
-            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">02 / DEVELOPMENT</div>
-            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">PERFORMANCE 95%</div>
-          </div>
-          <div class="p-7">
-            <h3 class="font-display text-4xl mb-3">WEB DEVELOPMENT</h3>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
-              Custom websites, landing pages, e-commerce stores, and web apps built for speed, responsiveness, and conversions. Clean code, fast load times, seamless UX.
-            </p>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Turnaround</div><div class="font-heading text-base">5–14 DAYS</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Stack</div><div class="font-heading text-base">HTML · CSS · JS · WP</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Responsive</div><div class="font-heading text-base">ALL DEVICES</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Support</div><div class="font-heading text-base">30 DAYS FREE</div></div>
-            </div>
-            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
-              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
-            </a>
-          </div>
-        </article>
-
-        <!-- SEO -->
-        <article class="program-card info-card notch-corner group" data-service="seo">
-          <div class="relative h-72 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmSeoSvc/800/600.jpg" class="program-img w-full h-full object-cover img-noir" alt="SEO service">
-            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
-            <div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--accent)] tracking-[0.2em]">03 / SEO</div>
-            <div class="absolute top-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">RANKINGS 100%</div>
-          </div>
-          <div class="p-7">
-            <h3 class="font-display text-4xl mb-3">SEARCH ENGINE OPTIMIZATION</h3>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-6">
-              On-page, off-page, technical SEO, keyword research, and content strategy to dominate Google rankings. Data-driven approach. Real traffic. Real leads.
-            </p>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--border-light)]">
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Timeline</div><div class="font-heading text-base">30–90 DAYS</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Reporting</div><div class="font-heading text-base">WEEKLY</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Scope</div><div class="font-heading text-base">FULL STACK SEO</div></div>
-              <div><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Guarantee</div><div class="font-heading text-base">PAGE 1 OR FREE</div></div>
-            </div>
-            <a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[0.15em] uppercase link-underline">
-              <span>Get Started</span><i class="fas fa-arrow-right text-[var(--accent)]"></i>
-            </a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO GALLERY + FLIP CARDS -->
-  <section class="relative py-28 lg:py-36 border-t border-[var(--border)]" id="portfolio">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-
-      <div class="reveal grid lg:grid-cols-12 gap-8 mb-12">
-        <div class="lg:col-span-7">
-          <div class="section-marker mb-6"><span>03 — Portfolio</span></div>
-          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-            My work <span class="text-[var(--accent)]">speaks</span><br>
-            <span class="text-stroke">louder than promises.</span>
-          </h2>
-        </div>
-        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
-          <p class="text-[var(--fg-dim)] text-base leading-relaxed">
-            A selection of real projects I've delivered. Each one represents a business I helped grow through design, code, and strategy. Hover the cards to see the details.
-          </p>
-        </div>
-      </div>
-
-      <!-- Image Gallery Grid -->
-      <div class="reveal mb-16">
-        <div class="portfolio-gallery">
-          <div class="pg-item wide">
-            <img src="https://picsum.photos/seed/jmPortLogo/1200/600.jpg" alt="Logo design project">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">BRAND IDENTITY</div>
-              <div class="font-display text-2xl">LUXE WEAR — LOGO & BRAND KIT</div>
-            </div>
-          </div>
-          <div class="pg-item tall">
-            <img src="https://picsum.photos/seed/jmPortSocial/600/1200.jpg" alt="Social media design">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">SOCIAL MEDIA</div>
-              <div class="font-display text-2xl">50+ POST TEMPLATES</div>
-            </div>
-          </div>
-          <div class="pg-item">
-            <img src="https://picsum.photos/seed/jmPortWeb1/600/600.jpg" alt="Website design">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">WEB DEVELOPMENT</div>
-              <div class="font-display text-2xl">SPICE HOUSE WEBSITE</div>
-            </div>
-          </div>
-          <div class="pg-item">
-            <img src="https://picsum.photos/seed/jmPortSeo1/600/600.jpg" alt="SEO dashboard">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">SEO RESULTS</div>
-              <div class="font-display text-2xl">PAGE 1 RANKINGS</div>
-            </div>
-          </div>
-          <div class="pg-item">
-            <img src="https://picsum.photos/seed/jmPortFlyer/600/600.jpg" alt="Flyer design">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">PRINT DESIGN</div>
-              <div class="font-display text-2xl">EVENT FLYERS & BANNERS</div>
-            </div>
-          </div>
-          <div class="pg-item wide">
-            <img src="https://picsum.photos/seed/jmPortEcomm/1200/600.jpg" alt="E-commerce website">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">E-COMMERCE</div>
-              <div class="font-display text-2xl">WOOCOMMERCE STORE — FULL BUILD</div>
-            </div>
-          </div>
-          <div class="pg-item">
-            <img src="https://picsum.photos/seed/jmPortUi/600/600.jpg" alt="UI design">
-            <div class="pg-overlay">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] mb-1">UI/UX DESIGN</div>
-              <div class="font-display text-2xl">DASHBOARD INTERFACE</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed Flip Cards -->
-      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Project 1 -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-face flip-front info-card flex flex-col">
-              <div class="coach-img-wrap">
-                <img src="https://picsum.photos/seed/jmFlipEcomm/600/800.jpg" alt="Luxe Wear PK project">
-                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 01</div>
-                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">E-COMMERCE</div>
-                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Full Brand + Store + SEO</div></div>
-              </div>
-              <div class="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 class="font-display text-3xl leading-none">LUXE WEAR PK</h3>
-                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Fashion E-Commerce</p>
-                </div>
-                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + DEV + SEO</span>
-                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
-                </div>
-              </div>
-            </div>
-            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Luxe Wear PK — Case Study</div>
-              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
-              <ul class="space-y-2.5 text-sm mb-6">
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Complete brand identity — logo, colors, typography</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>WooCommerce store with 200+ products</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>12 keywords ranked on Google Page 1</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>340% increase in organic traffic</span></li>
-              </ul>
-              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
-                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
-                <div class="font-display text-2xl text-[var(--accent)]">PS · AI · WP · AHREFS</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-face flip-front info-card flex flex-col">
-              <div class="coach-img-wrap">
-                <img src="https://picsum.photos/seed/jmFlipRestaurant/600/800.jpg" alt="Spice House project">
-                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 02</div>
-                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">RESTAURANT</div>
-                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Website + Local SEO</div></div>
-              </div>
-              <div class="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 class="font-display text-3xl leading-none">SPICE HOUSE</h3>
-                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Restaurant & Catering</p>
-                </div>
-                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DEV + LOCAL SEO</span>
-                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
-                </div>
-              </div>
-            </div>
-            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Spice House — Case Study</div>
-              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
-              <ul class="space-y-2.5 text-sm mb-6">
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>One-page site with menu & online ordering</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Google Business Profile fully optimized</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>#1 ranked for "best restaurant in area"</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>200% more online orders in 60 days</span></li>
-              </ul>
-              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
-                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
-                <div class="font-display text-2xl text-[var(--accent)]">FIGMA · HTML · GMB</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-face flip-front info-card flex flex-col">
-              <div class="coach-img-wrap">
-                <img src="https://picsum.photos/seed/jmFlipRealEstate/600/800.jpg" alt="Home Finders project">
-                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 03</div>
-                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">REAL ESTATE</div>
-                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Branding + Lead Gen SEO</div></div>
-              </div>
-              <div class="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 class="font-display text-3xl leading-none">HOME FINDERS</h3>
-                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Real Estate Agency</p>
-                </div>
-                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + SEO</span>
-                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
-                </div>
-              </div>
-            </div>
-            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ Home Finders — Case Study</div>
-              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
-              <ul class="space-y-2.5 text-sm mb-6">
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Full brand kit — logo, colors, fonts, guidelines</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Property listing website with search filters</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>18 keywords on Google Page 1</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Lead generation increased 450%</span></li>
-              </ul>
-              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
-                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
-                <div class="font-display text-2xl text-[var(--accent)]">AI · REACT · AHREFS</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4 -->
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-face flip-front info-card flex flex-col">
-              <div class="coach-img-wrap">
-                <img src="https://picsum.photos/seed/jmFlipStartup/600/800.jpg" alt="PayFlow App project">
-                <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">/ 04</div>
-                <div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[0.15em]">TECH STARTUP</div>
-                <div class="absolute bottom-4 left-4 right-4"><div class="font-mono text-[10px] text-[var(--silver-dim)] tracking-[0.2em] uppercase">Complete Digital Presence</div></div>
-              </div>
-              <div class="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 class="font-display text-3xl leading-none">PAYFLOW APP</h3>
-                  <p class="text-[var(--muted)] text-xs mt-2 font-heading tracking-wider uppercase">Fintech Startup</p>
-                </div>
-                <div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGN + DEV</span>
-                  <span class="font-mono text-[10px] text-[var(--accent)] tracking-[0.15em]">HOVER →</span>
-                </div>
-              </div>
-            </div>
-            <div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-card)]">
-              <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">/ PayFlow App — Case Study</div>
-              <h3 class="font-display text-2xl mb-5">What I Delivered</h3>
-              <ul class="space-y-2.5 text-sm mb-6">
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Landing page with 98 PageSpeed score</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Investor pitch deck designed in Figma</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Social media kit — 50+ post templates</span></li>
-                <li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--accent)] text-xs"></i><span>Client secured seed funding in 3 months</span></li>
-              </ul>
-              <div class="mt-auto pt-5 border-t border-[var(--border-light)]">
-                <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase mb-2">Tools</div>
-                <div class="font-display text-2xl text-[var(--accent)]">FIGMA · NEXT.JS · GA4</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="process">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-      <div class="reveal text-center mb-20">
-        <div class="section-marker mb-6 justify-center"><span>04 — How I Work</span></div>
-        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-          A process built for <span class="text-[var(--accent)]">results.</span>
-        </h2>
-        <p class="max-w-2xl mx-auto text-[var(--fg-dim)] text-lg leading-relaxed mt-6">
-          No guesswork. No wasted time. Every project follows a battle-tested framework that's delivered results for 50+ businesses across Pakistan and beyond.
-        </p>
-      </div>
-
-      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        <div class="info-card notch-corner p-7 process-connector">
-          <div class="font-display text-6xl text-[var(--accent)] mb-4">01</div>
-          <h3 class="font-display text-3xl mb-3">DISCOVER</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I dive deep into your business, audience, competitors, and goals. This isn't a questionnaire — it's a strategy session with you.</p>
-          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 1–2</div></div>
-        </div>
-        <div class="info-card notch-corner p-7 process-connector">
-          <div class="font-display text-6xl text-[var(--accent)] mb-4">02</div>
-          <h3 class="font-display text-3xl mb-3">STRATEGIZE</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I build a custom roadmap — design direction, tech stack, SEO targets. You approve the plan before I write a single line of code.</p>
-          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 2–3</div></div>
-        </div>
-        <div class="info-card notch-corner p-7 process-connector">
-          <div class="font-display text-6xl text-[var(--accent)] mb-4">03</div>
-          <h3 class="font-display text-3xl mb-3">EXECUTE</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Design, develop, optimize — simultaneously. You get regular updates, live previews, and unlimited revisions until it's perfect.</p>
-          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Day 3–14</div></div>
-        </div>
-        <div class="info-card notch-corner p-7">
-          <div class="font-display text-6xl text-[var(--accent)] mb-4">04</div>
-          <h3 class="font-display text-3xl mb-3">GROW</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Launch is just the beginning. I monitor, iterate, and scale. Monthly reports, ongoing optimization, and direct WhatsApp access to me.</p>
-          <div class="mt-5 pt-4 border-t border-[var(--border-light)]"><div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">Ongoing</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="relative py-28 lg:py-36 overflow-hidden border-t border-[var(--border)]" id="testimonials">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 mb-16">
-      <div class="reveal grid lg:grid-cols-12 gap-8">
-        <div class="lg:col-span-7">
-          <div class="section-marker mb-6"><span>05 — Client Voices</span></div>
-          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-            Real clients.<br><span class="text-[var(--accent)]">Real</span> results.
-          </h2>
-        </div>
-        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
-          <p class="text-[var(--fg-dim)] text-base leading-relaxed mb-5">Every testimonial is from a real business owner I've worked with. Drag to read their experience.</p>
-          <div class="flex items-center gap-3 font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase">
-            <i class="fas fa-hand-pointer text-[var(--accent)]"></i><span>Drag · Swipe · Auto-advance</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="relative overflow-hidden">
-      <div class="story-track" id="storyTrack">
-        <article class="story-card">
-          <div class="relative h-56 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmTestAhmed/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Ahmed R.">
-            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 01</div>
-            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">E-COMMERCE</div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">AHMED R.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">LUXE WEAR PK</span></div>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"Jan Muhammad completely transformed our online presence. From the logo to the website to SEO — everything was handled professionally. Our sales tripled in 4 months. The guy is a machine."</p>
-            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
-              <div><div class="font-display text-xl text-[var(--accent)]">340%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Traffic Up</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">3X</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Sales</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">P1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Rankings</div></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="relative h-56 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmTestFatima/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Fatima Z.">
-            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 02</div>
-            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">RESTAURANT</div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">FATIMA Z.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">SPICE HOUSE</span></div>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"We were invisible on Google before Jan stepped in. Now we're #1 for our area. Online orders doubled in just 2 months. His SEO skills are no joke."</p>
-            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
-              <div><div class="font-display text-xl text-[var(--accent)]">#1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Google Rank</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">200%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">More Orders</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">5★</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Reviews</div></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="relative h-56 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmTestBilal/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Bilal K.">
-            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 03</div>
-            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">REAL ESTATE</div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">BILAL K.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">HOME FINDERS</span></div>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"The branding Jan created for us is world-class. Our website generates leads 24/7 now. Best investment we've made for our business — hands down. Highly recommend."</p>
-            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
-              <div><div class="font-display text-xl text-[var(--accent)]">450%</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Lead Gen</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">18</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">KW on P1</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">24/7</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Leads</div></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="relative h-56 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmTestSara/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Sara M.">
-            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 04</div>
-            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">STARTUP</div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">SARA M.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">PAYFLOW APP</span></div>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"Jan designed our entire digital presence from zero. Landing page, pitch deck, social media — everything was cohesive and premium. Investors loved it. We got funded!"</p>
-            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
-              <div><div class="font-display text-xl text-[var(--accent)]">98</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">PageSpeed</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">50+</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Templates</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">FUNDED</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">3 Months</div></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="relative h-56 overflow-hidden">
-            <img src="https://picsum.photos/seed/jmTestUsman/600/400.jpg" class="w-full h-full object-cover img-noir" alt="Usman H.">
-            <div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--accent)] tracking-[0.2em]">CLIENT / 05</div>
-            <div class="absolute bottom-4 right-4 px-2 py-1 bg-[var(--accent)] text-black font-mono text-[10px] tracking-[0.15em]">PHOTOGRAPHY</div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4"><h3 class="font-display text-2xl">USMAN H.</h3><span class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">LENSCRAFT STUDIO</span></div>
-            <p class="text-[var(--fg-dim)] text-sm leading-relaxed mb-5 italic">"My portfolio website is a work of art. Jan understood my aesthetic instantly. The SEO work brought in clients I never would have found. Truly exceptional talent."</p>
-            <div class="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border-light)]">
-              <div><div class="font-display text-xl text-[var(--accent)]">5X</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Bookings</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">P1</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Local SEO</div></div>
-              <div><div class="font-display text-xl text-[var(--fg)]">10S</div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.15em] uppercase">Load Time</div></div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY JAN M -->
-  <section class="relative py-28 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-darker)]" id="whyus">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-      <div class="reveal text-center mb-20">
-        <div class="section-marker mb-6 justify-center"><span>06 — Why Jan M</span></div>
-        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-          Not a vendor. <span class="text-[var(--accent)]">Your growth partner.</span>
-        </h2>
-      </div>
-      <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-bolt text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">FAST TURNAROUND</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Most websites delivered in 5–14 days. Design drafts within 48 hours. I don't drag projects for months.</p>
-        </div>
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-infinity text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">UNLIMITED REVISIONS</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I don't stop until you're 100% satisfied. No revision caps, no hidden fees. Your vision, my execution.</p>
-        </div>
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-chart-line text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">DATA-DRIVEN SEO</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">No black-hat tricks. Premium tools, real keyword data, and proven strategies to get you ranking on Page 1.</p>
-        </div>
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-comments text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">DIRECT ACCESS</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">No account managers, no middlemen. You talk directly to me — Jan Muhammad. WhatsApp, call, or email.</p>
-        </div>
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-shield-halved text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">AFFORDABLE PREMIUM</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">Agency-quality work at freelancer prices. Based in Karachi means lower costs for you — without compromising quality.</p>
-        </div>
-        <div class="info-card p-8">
-          <div class="w-14 h-14 border border-[var(--accent)] flex items-center justify-center mb-6"><i class="fas fa-handshake text-[var(--accent)] text-xl"></i></div>
-          <h3 class="font-display text-3xl mb-3">POST-LAUNCH SUPPORT</h3>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed">I don't disappear after delivery. 30 days free support on all projects. Extended plans for ongoing maintenance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="relative py-28 lg:py-36 border-t border-[var(--border)]" id="contact">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
-      <div class="reveal grid lg:grid-cols-12 gap-8 mb-20">
-        <div class="lg:col-span-7">
-          <div class="section-marker mb-6"><span>07 — Let's Talk</span></div>
-          <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
-            Ready to <span class="text-[var(--accent)]">grow</span>?<br><span class="text-stroke">Let's build.</span>
-          </h2>
-        </div>
-        <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
-          <p class="text-[var(--fg-dim)] text-base leading-relaxed">Fill out the form or reach out directly. Free consultation for every new client — no strings attached.</p>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-12 gap-10">
-        <div class="lg:col-span-7">
-          <div class="booking-frame p-8 lg:p-10">
-            <form id="contactForm" onsubmit="handleSubmit(event)">
-              <div class="grid sm:grid-cols-2 gap-x-8 gap-y-2">
-                <div><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Your Name</label><input type="text" class="form-input" placeholder="Full name" required></div>
-                <div><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Phone / WhatsApp</label><input type="tel" class="form-input" placeholder="+92 3XX XXXXXXX" required></div>
-              </div>
-              <div class="mt-2"><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Email Address</label><input type="email" class="form-input" placeholder="your@email.com"></div>
-              <div class="mt-2">
-                <label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Service Needed</label>
-                <div class="flex flex-wrap gap-3 mt-3" id="servicePills">
-                  <span class="goal-pill active" data-value="Graphics Designing" onclick="toggleServicePill(this)">Graphics Designing</span>
-                  <span class="goal-pill" data-value="Web Development" onclick="toggleServicePill(this)">Web Development</span>
-                  <span class="goal-pill" data-value="SEO" onclick="toggleServicePill(this)">SEO</span>
-                  <span class="goal-pill" data-value="All Services" onclick="toggleServicePill(this)">All Services</span>
-                </div>
-              </div>
-              <div class="mt-2"><label class="font-mono text-[10px] text-[var(--muted)] tracking-[0.2em] uppercase block mb-1">Project Details</label><textarea class="form-input resize-none" rows="3" placeholder="Tell me about your project, goals, and timeline..."></textarea></div>
-              <div class="mt-8">
-                <button type="submit" class="pulse-btn font-heading text-sm tracking-[0.2em] uppercase text-black bg-[var(--accent)] px-10 py-4 hover:bg-[var(--accent-bright)] transition-colors w-full sm:w-auto">
-                  Send Message <i class="fas fa-paper-plane ml-2"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="lg:col-span-4 lg:col-start-9 flex flex-col gap-6">
-          <div class="info-card p-7">
-            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Direct Contact — Jan Muhammad</div>
-            <div class="space-y-4">
-              <a href="mailto:janmbapraofficial@gmail.com" class="flex items-center gap-4 group">
-                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors"><i class="fas fa-envelope text-[var(--accent)] text-sm"></i></div>
-                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Email</div><div class="font-heading text-sm tracking-wider link-underline">janmbapraofficial@gmail.com</div></div>
-              </a>
-              <a href="tel:03343976323" class="flex items-center gap-4 group">
-                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors"><i class="fas fa-phone text-[var(--accent)] text-sm"></i></div>
-                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Phone / WhatsApp</div><div class="font-heading text-sm tracking-wider link-underline">03343976323</div></div>
-              </a>
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center"><i class="fas fa-location-dot text-[var(--accent)] text-sm"></i></div>
-                <div><div class="font-mono text-[9px] text-[var(--muted)] tracking-[0.2em] uppercase">Location</div><div class="font-heading text-sm tracking-wider">Karachi, Pakistan</div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card p-7">
-            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Working Hours</div>
-            <div class="space-y-2">
-              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Monday – Friday</span><span>10:00 AM – 10:00 PM</span></div>
-              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Saturday</span><span>11:00 AM – 6:00 PM</span></div>
-              <div class="flex justify-between font-heading text-sm"><span class="text-[var(--fg-dim)]">Sunday</span><span class="text-[var(--accent)]">By Appointment</span></div>
-            </div>
-          </div>
-
-          <div class="info-card p-7">
-            <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-3">Follow My Work</div>
-            <div class="flex gap-3">
-              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-instagram text-sm"></i></a>
-              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-facebook-f text-sm"></i></a>
-              <a href="#" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-linkedin-in text-sm"></i></a>
-              <a href="https://wa.me/923343976323" class="w-10 h-10 border border-[var(--border-light)] flex items-center justify-center hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all text-[var(--fg-dim)]"><i class="fab fa-whatsapp text-sm"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-t border-[var(--border)] bg-[var(--bg-darker)]">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16">
-      <div class="grid md:grid-cols-3 gap-10 mb-12">
-        <div>
-          <div class="flex items-center gap-3 mb-5">
-            <img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo-footer">
-          </div>
-          <p class="text-[var(--fg-dim)] text-sm leading-relaxed max-w-xs">
-            Jan M Digital Growth — your one-stop digital agency in Karachi. Graphics designing, web development, and SEO by Jan Muhammad. All focused on your growth.
-          </p>
-        </div>
-        <div>
-          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">Quick Links</div>
-          <div class="space-y-2">
-            <a href="#about" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">About Jan Muhammad</a>
-            <a href="#services" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Services</a>
-            <a href="#portfolio" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Portfolio</a>
-            <a href="#process" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">My Process</a>
-            <a href="#testimonials" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Testimonials</a>
-            <a href="#contact" class="block font-heading text-sm tracking-wider text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors">Contact</a>
-          </div>
-        </div>
-        <div>
-          <div class="font-mono text-[10px] text-[var(--accent)] tracking-[0.2em] uppercase mb-4">Get In Touch</div>
-          <div class="space-y-2 font-heading text-sm tracking-wider text-[var(--fg-dim)]">
-            <a href="mailto:janmbapraofficial@gmail.com" class="block hover:text-[var(--fg)] transition-colors">janmbapraofficial@gmail.com</a>
-            <a href="tel:03343976323" class="block hover:text-[var(--fg)] transition-colors">03343976323</a>
-            <div>Karachi, Pakistan</div>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-[var(--border)] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">&copy; 2025 JAN M DIGITAL GROWTH. ALL RIGHTS RESERVED.</div>
-        <div class="font-mono text-[10px] text-[var(--muted)] tracking-[0.15em]">DESIGNED & DEVELOPED BY <span class="text-[var(--accent)]">JAN MUHAMMAD</span> IN KARACHI</div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Sticky CTA -->
-  <div class="sticky-cta bg-[var(--bg-darker)] border-t border-[var(--accent)] backdrop-blur-md" id="stickyCta">
-    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-3.5 flex items-center justify-between">
-      <div class="font-heading text-sm tracking-wider text-[var(--fg-dim)]">Ready to grow? <span class="text-[var(--fg)]">Let's start your project today.</span></div>
+    <div class="mt-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
       <div class="flex items-center gap-4">
-        <a href="tel:03343976323" class="font-heading text-xs tracking-[0.15em] uppercase text-[var(--fg-dim)] hover:text-[var(--fg)] transition-colors hidden sm:block"><i class="fas fa-phone text-[var(--accent)] mr-1"></i> 03343976323</a>
-        <a href="#contact" class="font-heading text-xs tracking-[0.2em] uppercase text-black bg-[var(--accent)] px-5 py-2.5 hover:bg-[var(--accent-bright)] transition-colors">Get a Quote</a>
+        <div class="flex -space-x-3">
+          <img src="https://picsum.photos/seed/clientface1/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+          <img src="https://picsum.photos/seed/clientface2/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+          <img src="https://picsum.photos/seed/clientface3/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+          <img src="https://picsum.photos/seed/clientface4/120/120.jpg" class="w-12 h-12 rounded-full border-2 border-[var(--bg)] object-cover img-noir" alt="Client">
+          <div class="w-12 h-12 rounded-full border-2 border-[var(--bg)] bg-[var(--ac)] flex items-center justify-center font-display text-base text-black">+50</div>
+        </div>
+        <div><div class="font-mono text-[10px] tracking-[.2em] text-[var(--mt)] uppercase">Happy Clients</div><div class="font-heading text-sm text-[var(--fg)] tracking-wider">Businesses trusting Jan M</div></div>
+      </div>
+      <div class="flex items-center gap-6 max-w-md w-full lg:w-auto">
+        <div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em]"><span id="chapterNum">01</span> / 05</div>
+        <div class="flex-1 progress-bar"><div class="progress-bar-fill" id="reelProgress"></div></div>
+        <div class="font-mono text-[10px] text-[var(--ac)] tracking-[.2em]">WORK REEL</div>
       </div>
     </div>
   </div>
+  <div class="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-black/60 backdrop-blur-sm py-3 overflow-hidden z-10">
+    <div class="marquee-track font-display text-sm tracking-[.25em] text-[var(--sv-d)]">
+      <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--ac)]">/</span><span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--ac)]">/</span><span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--ac)]">/</span><span class="px-8">BRAND IDENTITY</span><span class="text-[var(--ac)]">/</span><span class="px-8">LOGO DESIGN</span><span class="text-[var(--ac)]">/</span><span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--ac)]">/</span><span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--ac)]">/</span><span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--ac)]">/</span>
+      <span class="px-8">GRAPHICS DESIGNING</span><span class="text-[var(--ac)]">/</span><span class="px-8">WEB DEVELOPMENT</span><span class="text-[var(--ac)]">/</span><span class="px-8">SEARCH ENGINE OPTIMIZATION</span><span class="text-[var(--ac)]">/</span><span class="px-8">BRAND IDENTITY</span><span class="text-[var(--ac)]">/</span><span class="px-8">LOGO DESIGN</span><span class="text-[var(--ac)]">/</span><span class="px-8">SOCIAL MEDIA DESIGN</span><span class="text-[var(--ac)]">/</span><span class="px-8">E-COMMERCE WEBSITES</span><span class="text-[var(--ac)]">/</span><span class="px-8">FIRST PAGE RANKINGS</span><span class="text-[var(--ac)]">/</span>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // ====== REEL SLIDESHOW ======
-    const reelFrames = document.querySelectorAll('.reel-frame');
-    const reelProgress = document.getElementById('reelProgress');
-    const chapterNum = document.getElementById('chapterNum');
-    let currentReel = 0;
-    const reelDuration = 9000;
-    let reelTimer, reelStartTime;
+<!-- STATS -->
+<section class="border-y border-[var(--bd)] bg-[var(--bg-d)] relative overflow-hidden">
+  <div class="glow-orb" style="width:250px;height:250px;background:rgba(255,84,0,.05);top:-50%;right:20%"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
+    <div class="reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+      <div class="border-l border-[var(--bd-l)] pl-6"><div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display counter-glow" data-count="150">0</div><div class="font-mono text-[11px] text-[var(--mt)] tracking-[.2em] uppercase mt-2">Projects Delivered</div></div>
+      <div class="border-l border-[var(--bd-l)] pl-6"><div class="font-display text-6xl md:text-7xl text-[var(--ac)] number-display counter-glow" data-count="50">0</div><div class="font-mono text-[11px] text-[var(--mt)] tracking-[.2em] uppercase mt-2">Happy Clients</div></div>
+      <div class="border-l border-[var(--bd-l)] pl-6"><div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display counter-glow" data-count="35">0</div><div class="font-mono text-[11px] text-[var(--mt)] tracking-[.2em] uppercase mt-2">#1 Rankings Achieved</div></div>
+      <div class="border-l border-[var(--bd-l)] pl-6"><div class="font-display text-6xl md:text-7xl text-[var(--fg)] number-display counter-glow" data-count="98">0</div><div class="font-mono text-[11px] text-[var(--mt)] tracking-[.2em] uppercase mt-2">% Client Retention</div></div>
+    </div>
+  </div>
+</section>
 
-    function advanceReel() {
-      reelFrames[currentReel].classList.remove('active');
-      const img = reelFrames[currentReel].querySelector('img');
-      if (img) { img.style.animation = 'none'; img.offsetHeight; img.style.animation = ''; }
-      currentReel = (currentReel + 1) % reelFrames.length;
-      reelFrames[currentReel].classList.add('active');
-      chapterNum.textContent = String(currentReel + 1).padStart(2, '0');
-      startReelTimer();
-    }
+<!-- ABOUT -->
+<section class="relative py-28 lg:py-36" id="about">
+  <div class="float-shape float-slow" style="top:10%;right:5%;width:80px;height:80px;border:1px solid rgba(255,84,0,.08);border-radius:50%"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-5 order-2 lg:order-1 reveal-rotate">
+        <div class="about-img-grid" style="height:520px">
+          <div class="span-2" style="height:55%"><img src="https://picsum.photos/seed/designworkspace2024/800/500.jpg" alt="Jan Muhammad at workspace"></div>
+          <div style="height:42%"><img src="https://picsum.photos/seed/graphicdesignwork/400/400.jpg" alt="Designing work"></div>
+          <div style="height:42%"><img src="https://picsum.photos/seed/codinglaptop/400/400.jpg" alt="Coding work"></div>
+        </div>
+      </div>
+      <div class="lg:col-span-7 order-1 lg:order-2 reveal-right">
+        <div class="section-marker mb-6"><span>01 — The Person Behind The Pixels</span></div>
+        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9] mb-8">I'M <span class="text-[var(--ac)]">JAN MUHAMMAD.</span><br><span class="text-stroke glitch-hover">I BUILD DIGITAL EMPIRES.</span></h2>
+        <div class="space-y-5 text-[var(--fg-d)] text-base md:text-lg leading-relaxed max-w-2xl">
+          <p>I started my journey in digital design and development out of pure obsession — the drive to create things that don't just look beautiful, but actually <span class="text-[var(--ac)]">perform</span>. Based in Karachi, I've spent years mastering three core disciplines that most agencies split across entire teams.</p>
+          <p>From crafting brand identities that make businesses unforgettable, to building blazing-fast websites that convert visitors into customers, to deploying SEO strategies that consistently land clients on Google's first page — <span class="text-[var(--fg)] font-semibold">I do it all with precision</span>.</p>
+          <p>I'm not a big agency. When you work with me, you work directly with the person designing your logo, writing your code, and optimizing your rankings. That's why my clients stay — <span class="text-[var(--ac)] font-semibold">98% retention rate</span> isn't marketing, it's a relationship metric.</p>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <div class="info-card px-5 py-4 flex items-center gap-3 cursor-hover-target"><i class="fas fa-palette text-[var(--ac)] text-lg"></i><div><div class="font-heading text-sm tracking-wider">Graphics Expert</div><div class="font-mono text-[9px] text-[var(--mt)] tracking-[.15em]">PS · AI · CANVA · FIGMA</div></div></div>
+          <div class="info-card px-5 py-4 flex items-center gap-3 cursor-hover-target"><i class="fas fa-code text-[var(--ac)] text-lg"></i><div><div class="font-heading text-sm tracking-wider">Full-Stack Dev</div><div class="font-mono text-[9px] text-[var(--mt)] tracking-[.15em]">HTML · CSS · JS · WP · REACT</div></div></div>
+          <div class="info-card px-5 py-4 flex items-center gap-3 cursor-hover-target"><i class="fas fa-chart-line text-[var(--ac)] text-lg"></i><div><div class="font-heading text-sm tracking-wider">SEO Strategist</div><div class="font-mono text-[9px] text-[var(--mt)] tracking-[.15em]">AHREFS · SEMRUSH · GA4</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    function startReelTimer() {
-      reelStartTime = Date.now();
-      clearInterval(reelTimer);
-      reelTimer = setInterval(() => {
-        const elapsed = Date.now() - reelStartTime;
-        reelProgress.style.width = Math.min((elapsed / reelDuration) * 100, 100) + '%';
-        if (elapsed >= reelDuration) advanceReel();
-      }, 50);
-    }
-    startReelTimer();
+<div class="section-divider max-w-[1600px] mx-auto"></div>
 
-    // ====== MUTE TOGGLE ======
-    const muteToggle = document.getElementById('muteToggle');
-    const muteLabel = document.getElementById('muteLabel');
-    const muteIcon = document.getElementById('muteIcon');
-    let isMuted = true;
-    muteToggle.addEventListener('click', () => {
-      isMuted = !isMuted;
-      muteToggle.classList.toggle('unmuted', !isMuted);
-      muteLabel.textContent = isMuted ? 'Muted' : 'Live';
-      muteIcon.className = isMuted ? 'fas fa-volume-xmark text-xs text-[var(--muted)] group-hover:text-[var(--accent)]' : 'fas fa-volume-high text-xs text-[var(--accent)]';
-    });
+<!-- SERVICES -->
+<section class="relative py-28 lg:py-36 bg-[var(--bg-d)]" id="services">
+  <div class="glow-orb" style="width:350px;height:350px;background:rgba(255,84,0,.04);bottom:10%;left:-5%"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="reveal grid lg:grid-cols-12 gap-8 mb-20">
+      <div class="lg:col-span-5">
+        <div class="section-marker mb-6"><span>02 — Services</span></div>
+        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9]">Three pillars.<br><span class="text-stroke">One mission:</span><br><span class="text-[var(--ac)]">your digital growth.</span></h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 flex flex-col justify-end">
+        <p class="text-[var(--fg-d)] text-lg leading-relaxed mb-6">Every service is engineered around a single objective — measurable, aggressive growth for your brand.</p>
+        <div class="flex flex-wrap gap-3" id="serviceFilter">
+          <span class="goal-pill active cursor-hover-target" data-filter="all"><span>All Services</span></span>
+          <span class="goal-pill cursor-hover-target" data-filter="design"><span>Design</span></span>
+          <span class="goal-pill cursor-hover-target" data-filter="development"><span>Development</span></span>
+          <span class="goal-pill cursor-hover-target" data-filter="seo"><span>SEO</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-stagger grid md:grid-cols-3 gap-6 lg:gap-8" id="serviceGrid">
+      <article class="svc-card notch-corner animated-border cursor-hover-target" data-service="design">
+        <div class="relative h-72 overflow-hidden"><img src="https://picsum.photos/seed/creativegraphics2024/800/600.jpg" class="svc-img w-full h-full object-cover img-noir" alt="Graphics designing"><div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-c)] via-transparent to-transparent"></div><div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--ac)] tracking-[.2em]">01 / DESIGN</div><div class="absolute top-4 right-4 px-2 py-1 bg-[var(--ac)] text-black font-mono text-[10px] tracking-[.15em]">CREATIVE 100%</div></div>
+        <div class="p-7 svc-content"><h3 class="font-display text-4xl mb-3">GRAPHICS DESIGNING</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">Logos, social media creatives, brand identities, flyers, banners, posters — everything visual that makes your brand unforgettable.</p><div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--bd-l)]"><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Turnaround</div><div class="font-heading text-base">2–5 DAYS</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Revisions</div><div class="font-heading text-base">UNLIMITED</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Deliverables</div><div class="font-heading text-base">PNG · SVG · PDF</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Tools</div><div class="font-heading text-base">PS · AI · CANVA</div></div></div><a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[.15em] uppercase link-underline cursor-hover-target"><span>Get Started</span><i class="fas fa-arrow-right text-[var(--ac)] transition-transform group-hover:translate-x-2"></i></a></div>
+      </article>
+      <article class="svc-card notch-corner animated-border cursor-hover-target" data-service="development">
+        <div class="relative h-72 overflow-hidden"><img src="https://picsum.photos/seed/webdevelopment2024/800/600.jpg" class="svc-img w-full h-full object-cover img-noir" alt="Web development"><div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-c)] via-transparent to-transparent"></div><div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--ac)] tracking-[.2em]">02 / DEVELOPMENT</div><div class="absolute top-4 right-4 px-2 py-1 bg-[var(--ac)] text-black font-mono text-[10px] tracking-[.15em]">SPEED 95+</div></div>
+        <div class="p-7 svc-content"><h3 class="font-display text-4xl mb-3">WEB DEVELOPMENT</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">Custom websites, landing pages, e-commerce stores, and web apps built for speed, responsiveness, and conversions.</p><div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--bd-l)]"><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Turnaround</div><div class="font-heading text-base">5–14 DAYS</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Stack</div><div class="font-heading text-base">HTML · CSS · JS · WP</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Responsive</div><div class="font-heading text-base">ALL DEVICES</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Support</div><div class="font-heading text-base">30 DAYS FREE</div></div></div><a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[.15em] uppercase link-underline cursor-hover-target"><span>Get Started</span><i class="fas fa-arrow-right text-[var(--ac)]"></i></a></div>
+      </article>
+      <article class="svc-card notch-corner animated-border cursor-hover-target" data-service="seo">
+        <div class="relative h-72 overflow-hidden"><img src="https://picsum.photos/seed/seomarketing2024/800/600.jpg" class="svc-img w-full h-full object-cover img-noir" alt="SEO service"><div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-c)] via-transparent to-transparent"></div><div class="absolute top-4 left-4 font-mono text-[11px] text-[var(--ac)] tracking-[.2em]">03 / SEO</div><div class="absolute top-4 right-4 px-2 py-1 bg-[var(--ac)] text-black font-mono text-[10px] tracking-[.15em]">RANK #1</div></div>
+        <div class="p-7 svc-content"><h3 class="font-display text-4xl mb-3">SEARCH ENGINE OPTIMIZATION</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">On-page, off-page, technical SEO, keyword research, and content strategy to dominate Google rankings.</p><div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 pb-6 border-b border-[var(--bd-l)]"><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Timeline</div><div class="font-heading text-base">30–90 DAYS</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Reporting</div><div class="font-heading text-base">WEEKLY</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Scope</div><div class="font-heading text-base">FULL STACK SEO</div></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Guarantee</div><div class="font-heading text-base">PAGE 1 OR FREE</div></div></div><a href="#contact" class="flex items-center justify-between font-heading text-sm tracking-[.15em] uppercase link-underline cursor-hover-target"><span>Get Started</span><i class="fas fa-arrow-right text-[var(--ac)]"></i></a></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-    // ====== INTERSECTION OBSERVER ======
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+<div class="section-divider max-w-[1600px] mx-auto"></div>
 
-    // ====== NUMBER COUNTER ======
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target, target = parseInt(el.dataset.count);
-          let current = 0;
-          const increment = Math.max(1, Math.floor(target / 60));
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) { current = target; clearInterval(timer); }
-            el.textContent = current.toLocaleString();
-          }, 25);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.number-display[data-count]').forEach(el => counterObserver.observe(el));
+<!-- PORTFOLIO -->
+<section class="relative py-28 lg:py-36" id="portfolio">
+  <div class="float-shape float-medium" style="top:15%;left:3%;width:50px;height:50px;border:1px solid rgba(255,84,0,.1);transform:rotate(30deg)"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="reveal grid lg:grid-cols-12 gap-8 mb-12">
+      <div class="lg:col-span-7"><div class="section-marker mb-6"><span>03 — Portfolio</span></div><h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9]">My work <span class="text-[var(--ac)]">speaks</span><br><span class="text-stroke glitch-hover">louder than promises.</span></h2></div>
+      <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end"><p class="text-[var(--fg-d)] text-base leading-relaxed">Real projects delivered. Each represents a business I helped grow through design, code, and strategy.</p></div>
+    </div>
+    <div class="reveal mb-16">
+      <div class="portfolio-gallery">
+        <div class="pg-item wide"><img src="https://picsum.photos/seed/logobranddesign/1200/600.jpg" alt="Logo design"><div class="pg-overlay"><div class="pg-tag">BRAND IDENTITY</div><div class="pg-title">LUXE WEAR — LOGO & BRAND KIT</div></div></div>
+        <div class="pg-item tall"><img src="https://picsum.photos/seed/socialmediadesign/600/1200.jpg" alt="Social media"><div class="pg-overlay"><div class="pg-tag">SOCIAL MEDIA</div><div class="pg-title">50+ POST TEMPLATES</div></div></div>
+        <div class="pg-item"><img src="https://picsum.photos/seed/responsiveweb/600/600.jpg" alt="Website"><div class="pg-overlay"><div class="pg-tag">WEB DEVELOPMENT</div><div class="pg-title">SPICE HOUSE WEBSITE</div></div></div>
+        <div class="pg-item"><img src="https://picsum.photos/seed/seorankingdata/600/600.jpg" alt="SEO"><div class="pg-overlay"><div class="pg-tag">SEO RESULTS</div><div class="pg-title">PAGE 1 RANKINGS</div></div></div>
+        <div class="pg-item"><img src="https://picsum.photos/seed/flyerprintdesign/600/600.jpg" alt="Flyer"><div class="pg-overlay"><div class="pg-tag">PRINT DESIGN</div><div class="pg-title">EVENT FLYERS & BANNERS</div></div></div>
+        <div class="pg-item wide"><img src="https://picsum.photos/seed/ecommercestore/1200/600.jpg" alt="E-commerce"><div class="pg-overlay"><div class="pg-tag">E-COMMERCE</div><div class="pg-title">WOOCOMMERCE STORE — FULL BUILD</div></div></div>
+        <div class="pg-item"><img src="https://picsum.photos/seed/uidashboarddesign/600/600.jpg" alt="UI"><div class="pg-overlay"><div class="pg-tag">UI/UX DESIGN</div><div class="pg-title">DASHBOARD INTERFACE</div></div></div>
+      </div>
+    </div>
+    <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="flip-card cursor-hover-target"><div class="flip-card-inner"><div class="flip-face flip-front info-card flex flex-col"><div class="coach-img-wrap"><img src="https://picsum.photos/seed/fashionecommerce/600/800.jpg" alt="Luxe Wear PK"><div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--ac)] tracking-[.2em]">/ 01</div><div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[.15em]">E-COMMERCE</div></div><div class="p-6 flex-1 flex flex-col justify-between"><div><h3 class="font-display text-3xl leading-none">LUXE WEAR PK</h3><p class="text-[var(--mt)] text-xs mt-2 font-heading tracking-wider uppercase">Fashion E-Commerce</p></div><div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--bd-l)]"><span class="font-mono text-[10px] text-[var(--mt)]">DESIGN + DEV + SEO</span><span class="font-mono text-[10px] text-[var(--ac)]">HOVER →</span></div></div></div><div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-c)]"><div class="font-mono text-[10px] text-[var(--ac)] tracking-[.2em] uppercase mb-4">Case Study</div><h3 class="font-display text-2xl mb-5">Delivered</h3><ul class="space-y-2.5 text-sm mb-6 flip-list"><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Complete brand identity</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>WooCommerce 200+ products</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>12 keywords Page 1</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>340% organic traffic increase</span></li></ul><div class="mt-auto pt-5 border-t border-[var(--bd-l)] flip-tools"><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase mb-2">Tools</div><div class="font-display text-2xl text-[var(--ac)]">PS · AI · WP · AHREFS</div></div></div></div></div>
+      <div class="flip-card cursor-hover-target"><div class="flip-card-inner"><div class="flip-face flip-front info-card flex flex-col"><div class="coach-img-wrap"><img src="https://picsum.photos/seed/restaurantwebsite/600/800.jpg" alt="Spice House"><div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--ac)] tracking-[.2em]">/ 02</div><div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[.15em]">RESTAURANT</div></div><div class="p-6 flex-1 flex flex-col justify-between"><div><h3 class="font-display text-3xl leading-none">SPICE HOUSE</h3><p class="text-[var(--mt)] text-xs mt-2 font-heading tracking-wider uppercase">Restaurant & Catering</p></div><div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--bd-l)]"><span class="font-mono text-[10px] text-[var(--mt)]">DEV + LOCAL SEO</span><span class="font-mono text-[10px] text-[var(--ac)]">HOVER →</span></div></div></div><div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-c)]"><div class="font-mono text-[10px] text-[var(--ac)] tracking-[.2em] uppercase mb-4">Case Study</div><h3 class="font-display text-2xl mb-5">Delivered</h3><ul class="space-y-2.5 text-sm mb-6 flip-list"><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>One-page site with ordering</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Google Business optimized</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>#1 "best restaurant" ranking</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>200% more online orders</span></li></ul><div class="mt-auto pt-5 border-t border-[var(--bd-l)] flip-tools"><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase mb-2">Tools</div><div class="font-display text-2xl text-[var(--ac)]">FIGMA · HTML · GMB</div></div></div></div></div>
+      <div class="flip-card cursor-hover-target"><div class="flip-card-inner"><div class="flip-face flip-front info-card flex flex-col"><div class="coach-img-wrap"><img src="https://picsum.photos/seed/realestateweb/600/800.jpg" alt="Home Finders"><div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--ac)] tracking-[.2em]">/ 03</div><div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[.15em]">REAL ESTATE</div></div><div class="p-6 flex-1 flex flex-col justify-between"><div><h3 class="font-display text-3xl leading-none">HOME FINDERS</h3><p class="text-[var(--mt)] text-xs mt-2 font-heading tracking-wider uppercase">Real Estate Agency</p></div><div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--bd-l)]"><span class="font-mono text-[10px] text-[var(--mt)]">BRAND + SEO</span><span class="font-mono text-[10px] text-[var(--ac)]">HOVER →</span></div></div></div><div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-c)]"><div class="font-mono text-[10px] text-[var(--ac)] tracking-[.2em] uppercase mb-4">Case Study</div><h3 class="font-display text-2xl mb-5">Delivered</h3><ul class="space-y-2.5 text-sm mb-6 flip-list"><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Full brand identity kit</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Property listing website</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>8 keywords top 3 Google</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>450% organic lead increase</span></li></ul><div class="mt-auto pt-5 border-t border-[var(--bd-l)] flip-tools"><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase mb-2">Tools</div><div class="font-display text-2xl text-[var(--ac)]">AI · REACT · SEMRUSH</div></div></div></div></div>
+      <div class="flip-card cursor-hover-target"><div class="flip-card-inner"><div class="flip-face flip-front info-card flex flex-col"><div class="coach-img-wrap"><img src="https://picsum.photos/seed/fitnessbranding/600/800.jpg" alt="FitZone"><div class="absolute top-4 left-4 font-mono text-[10px] text-[var(--ac)] tracking-[.2em]">/ 04</div><div class="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur-sm font-mono text-[10px] text-[var(--fg)] tracking-[.15em]">FITNESS</div></div><div class="p-6 flex-1 flex flex-col justify-between"><div><h3 class="font-display text-3xl leading-none">FITZONE GYM</h3><p class="text-[var(--mt)] text-xs mt-2 font-heading tracking-wider uppercase">Fitness & Wellness</p></div><div class="flex items-center justify-between mt-4 pt-4 border-t border-[var(--bd-l)]"><span class="font-mono text-[10px] text-[var(--mt)]">DESIGN ONLY</span><span class="font-mono text-[10px] text-[var(--ac)]">HOVER →</span></div></div></div><div class="flip-face flip-back info-card p-7 flex flex-col bg-[var(--bg-c)]"><div class="font-mono text-[10px] text-[var(--ac)] tracking-[.2em] uppercase mb-4">Case Study</div><h3 class="font-display text-2xl mb-5">Delivered</h3><ul class="space-y-2.5 text-sm mb-6 flip-list"><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Gym logo & brand guidelines</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>100+ social media designs</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>Merchandise & print collateral</span></li><li class="flex items-center gap-3"><i class="fas fa-circle-check text-[var(--ac)] text-xs"></i><span>300% Instagram engagement boost</span></li></ul><div class="mt-auto pt-5 border-t border-[var(--bd-l)] flip-tools"><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase mb-2">Tools</div><div class="font-display text-2xl text-[var(--ac)]">PS · AI · CANVA PRO</div></div></div></div></div>
+    </div>
+  </div>
+</section>
 
-    // ====== STORY CAROUSEL ======
-    const storyTrack = document.getElementById('storyTrack');
-    let isDragging = false, startX, scrollLeft, autoScrollInterval;
+<div class="section-divider max-w-[1600px] mx-auto"></div>
 
-    function startAutoScroll() {
-      autoScrollInterval = setInterval(() => {
-        storyTrack.scrollLeft += 1;
-        if (storyTrack.scrollLeft >= storyTrack.scrollWidth - storyTrack.clientWidth) storyTrack.scrollLeft = 0;
-      }, 30);
-    }
+<!-- PROCESS -->
+<section class="relative py-28 lg:py-36 bg-[var(--bg-d)]" id="process">
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(255,84,0,.04);top:20%;right:10%"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="reveal text-center mb-20"><div class="section-marker justify-center mb-6"><span>04 — Process</span></div><h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9]">HOW I <span class="text-[var(--ac)]">DELIVER</span><br><span class="text-stroke">RESULTS.</span></h2></div>
+    <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div class="process-step info-card p-7 process-connector cursor-hover-target"><div class="process-num">01</div><div class="relative z-10"><div class="w-12 h-12 border border-[var(--ac)] flex items-center justify-center mb-6 transition-all duration-500"><i class="fas fa-magnifying-glass text-[var(--ac)]"></i></div><h3 class="font-display text-3xl mb-3">DISCOVER</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed">Deep dive into your brand, competitors, audience, and goals.</p></div></div>
+      <div class="process-step info-card p-7 process-connector cursor-hover-target"><div class="process-num">02</div><div class="relative z-10"><div class="w-12 h-12 border border-[var(--ac)] flex items-center justify-center mb-6 transition-all duration-500"><i class="fas fa-pen-ruler text-[var(--ac)]"></i></div><h3 class="font-display text-3xl mb-3">STRATEGIZE</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed">Blueprint the approach — design direction, tech stack, SEO keywords.</p></div></div>
+      <div class="process-step info-card p-7 process-connector cursor-hover-target"><div class="process-num">03</div><div class="relative z-10"><div class="w-12 h-12 border border-[var(--ac)] flex items-center justify-center mb-6 transition-all duration-500"><i class="fas fa-rocket text-[var(--ac)]"></i></div><h3 class="font-display text-3xl mb-3">EXECUTE</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed">Build, design, optimize. Every pixel, every line of code — precision.</p></div></div>
+      <div class="process-step info-card p-7 cursor-hover-target"><div class="process-num">04</div><div class="relative z-10"><div class="w-12 h-12 border border-[var(--ac)] flex items-center justify-center mb-6 transition-all duration-500"><i class="fas fa-chart-line text-[var(--ac)]"></i></div><h3 class="font-display text-3xl mb-3">GROW</h3><p class="text-[var(--fg-d)] text-sm leading-relaxed">Launch, monitor, iterate. Weekly reports and measurable growth.</p></div></div>
+    </div>
+  </div>
+</section>
 
-    storyTrack.addEventListener('mousedown', (e) => { isDragging = true; storyTrack.classList.add('dragging'); startX = e.pageX - storyTrack.offsetLeft; scrollLeft = storyTrack.scrollLeft; clearInterval(autoScrollInterval); });
-    storyTrack.addEventListener('mouseleave', () => { isDragging = false; storyTrack.classList.remove('dragging'); startAutoScroll(); });
-    storyTrack.addEventListener('mouseup', () => { isDragging = false; storyTrack.classList.remove('dragging'); startAutoScroll(); });
-    storyTrack.addEventListener('mousemove', (e) => { if (!isDragging) return; e.preventDefault(); storyTrack.scrollLeft = scrollLeft - ((e.pageX - storyTrack.offsetLeft) - startX) * 1.5; });
-    storyTrack.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].pageX - storyTrack.offsetLeft; scrollLeft = storyTrack.scrollLeft; clearInterval(autoScrollInterval); }, { passive: true });
-    storyTrack.addEventListener('touchend', () => { isDragging = false; startAutoScroll(); });
-    storyTrack.addEventListener('touchmove', (e) => { if (!isDragging) return; storyTrack.scrollLeft = scrollLeft - ((e.touches[0].pageX - storyTrack.offsetLeft) - startX); }, { passive: true });
-    startAutoScroll();
+<div class="section-divider max-w-[1600px] mx-auto"></div>
 
-    // ====== STICKY CTA ======
-    const stickyCta = document.getElementById('stickyCta');
-    const stickyObserver = new IntersectionObserver((entries) => { entries.forEach(entry => stickyCta.classList.toggle('visible', !entry.isIntersecting)); }, { threshold: 0.05 });
-    stickyObserver.observe(document.getElementById('hero'));
+<!-- TESTIMONIALS -->
+<section class="relative py-28 lg:py-36" id="testimonials">
+  <div class="float-shape float-slow" style="bottom:20%;right:8%;width:60px;height:60px;border:1px solid rgba(255,84,0,.1)"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="reveal grid lg:grid-cols-12 gap-8 mb-16"><div class="lg:col-span-6"><div class="section-marker mb-6"><span>05 — Testimonials</span></div><h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9]">CLIENTS <span class="text-[var(--ac)]">DON'T LIE.</span></h2></div></div>
+    <div class="reveal-stagger grid md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="testi-card p-7 relative cursor-hover-target"><div class="quote-mark">"</div><div class="relative z-10"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i></div><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">"Jan completely transformed our online presence. Our website went from invisible to page 1 on Google in just 45 days. Best investment we made."</p><div class="flex items-center gap-3 pt-5 border-t border-[var(--bd-l)]"><img src="https://picsum.photos/seed/testimonial1/80/80.jpg" class="w-10 h-10 rounded-full object-cover img-noir" alt="Client"><div><div class="font-heading text-sm tracking-wider">Ahmed Raza</div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.15em]">CEO, Luxe Wear PK</div></div></div></div></div>
+      <div class="testi-card p-7 relative cursor-hover-target"><div class="quote-mark">"</div><div class="relative z-10"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i></div><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">"Working with Jan is like having an entire agency in one person. He designed our brand, built our website, and got us ranking — absolute professional."</p><div class="flex items-center gap-3 pt-5 border-t border-[var(--bd-l)]"><img src="https://picsum.photos/seed/testimonial2/80/80.jpg" class="w-10 h-10 rounded-full object-cover img-noir" alt="Client"><div><div class="font-heading text-sm tracking-wider">Sarah Khan</div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.15em]">Owner, Spice House</div></div></div></div></div>
+      <div class="testi-card p-7 relative cursor-hover-target"><div class="quote-mark">"</div><div class="relative z-10"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i><i class="fas fa-star text-[var(--ac)] text-sm"></i></div><p class="text-[var(--fg-d)] text-sm leading-relaxed mb-6">"Our social media went from 200 to 15K followers in 3 months. The creatives are fire and engagement went through the roof. He thinks strategy."</p><div class="flex items-center gap-3 pt-5 border-t border-[var(--bd-l)]"><img src="https://picsum.photos/seed/testimonial3/80/80.jpg" class="w-10 h-10 rounded-full object-cover img-noir" alt="Client"><div><div class="font-heading text-sm tracking-wider">Bilal Sheikh</div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.15em]">Founder, FitZone Gym</div></div></div></div></div>
+    </div>
+  </div>
+</section>
 
-    // ====== SERVICE PILLS FILTER ======
-    document.querySelectorAll('#services .goal-pill').forEach(pill => {
-      pill.addEventListener('click', function() {
-        document.querySelectorAll('#services .goal-pill').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
-        const filter = this.textContent.trim().toLowerCase();
-        document.querySelectorAll('#services .program-card').forEach(card => {
-          card.style.display = (filter === 'all services') ? '' : (card.dataset.service === filter ? '' : 'none');
-        });
-      });
-    });
+<div class="section-divider max-w-[1600px] mx-auto"></div>
 
-    // ====== CONTACT FORM SERVICE PILLS ======
-    function toggleServicePill(el) {
-      document.querySelectorAll('#servicePills .goal-pill').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-    }
+<!-- CONTACT -->
+<section class="relative py-28 lg:py-36 bg-[var(--bg-d)]" id="contact">
+  <div class="glow-orb" style="width:400px;height:400px;background:rgba(255,84,0,.05);bottom:-10%;left:30%"></div>
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="reveal grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-5">
+        <div class="section-marker mb-6"><span>06 — Contact</span></div>
+        <h2 class="font-display text-6xl md:text-7xl lg:text-8xl leading-[.9] mb-8">LET'S <span class="text-[var(--ac)]">BUILD</span><br><span class="text-stroke glitch-hover">SOMETHING GREAT.</span></h2>
+        <p class="text-[var(--fg-d)] text-lg leading-relaxed mb-10 max-w-md">Ready to grow your brand? Drop me a message. I respond within 24 hours.</p>
+        <div class="space-y-6 mb-10">
+          <div class="flex items-center gap-4"><div class="w-10 h-10 border border-[var(--bd-l)] flex items-center justify-center transition-all duration-300 hover:border-[var(--ac)] hover:bg-[var(--ac)] hover:bg-opacity-10"><i class="fas fa-envelope text-[var(--ac)] text-sm"></i></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Email</div><div class="font-heading text-sm tracking-wider">janmuhammad@email.com</div></div></div>
+          <div class="flex items-center gap-4"><div class="w-10 h-10 border border-[var(--bd-l)] flex items-center justify-center transition-all duration-300 hover:border-[var(--ac)]"><i class="fas fa-phone text-[var(--ac)] text-sm"></i></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">WhatsApp</div><div class="font-heading text-sm tracking-wider">+92 3XX XXXXXXX</div></div></div>
+          <div class="flex items-center gap-4"><div class="w-10 h-10 border border-[var(--bd-l)] flex items-center justify-center transition-all duration-300 hover:border-[var(--ac)]"><i class="fas fa-location-dot text-[var(--ac)] text-sm"></i></div><div><div class="font-mono text-[10px] text-[var(--mt)] tracking-[.2em] uppercase">Location</div><div class="font-heading text-sm tracking-wider">Karachi, Pakistan</div></div></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="https://www.instagram.com/janmbapra/" target="_blank" class="social-icon cursor-hover-target" aria-label="Instagram"><i class="fab fa-instagram text-[var(--fg-d)]"></i></a>
+          <a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="social-icon cursor-hover-target" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-[var(--fg-d)]"></i></a>
+          <a href="#" class="social-icon cursor-hover-target" aria-label="WhatsApp"><i class="fab fa-whatsapp text-[var(--fg-d)]"></i></a>
+          <a href="#" class="social-icon cursor-hover-target" aria-label="Behance"><i class="fab fa-behance text-[var(--fg-d)]"></i></a>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="booking-frame p-8 lg:p-12">
+          <form id="contactForm" class="space-y-8">
+            <div class="grid sm:grid-cols-2 gap-8">
+              <div class="form-group"><label class="form-label">Your Name *</label><input type="text" class="form-input" placeholder="Enter your name" required></div>
+              <div class="form-group"><label class="form-label">Email Address *</label><input type="email" class="form-input" placeholder="Enter your email" required></div>
+            </div>
+            <div class="form-group"><label class="form-label">Service Needed</label><div class="flex flex-wrap gap-3 mt-3" id="serviceSelect"><span class="goal-pill active cursor-hover-target" data-value="graphics"><span>Graphics Design</span></span><span class="goal-pill cursor-hover-target" data-value="web"><span>Web Development</span></span><span class="goal-pill cursor-hover-target" data-value="seo"><span>SEO</span></span><span class="goal-pill cursor-hover-target" data-value="all"><span>All Services</span></span></div></div>
+            <div class="form-group"><label class="form-label">Your Message *</label><textarea class="form-input resize-none" rows="4" placeholder="Tell me about your project..." required></textarea></div>
+            <div class="flex items-center justify-between flex-wrap gap-4">
+              <div class="font-mono text-[10px] text-[var(--mt)] tracking-[.15em]">* REQUIRED FIELDS</div>
+              <button type="submit" class="mag-btn pulse-btn ripple-btn font-heading text-sm tracking-[.2em] uppercase text-black bg-[var(--ac)] px-8 py-4 hover:bg-[var(--ac-b)] transition-colors cursor-hover-target">Send Message <i class="fas fa-arrow-right ml-3"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ====== FORM SUBMIT ======
-    function handleSubmit(e) {
-      e.preventDefault();
-      document.getElementById('toast').classList.add('visible');
-      e.target.reset();
-      document.querySelectorAll('#servicePills .goal-pill').forEach(p => p.classList.remove('active'));
-      document.querySelector('#servicePills .goal-pill[data-value="Graphics Designing"]').classList.add('active');
-      setTimeout(() => document.getElementById('toast').classList.remove('visible'), 4000);
-    }
+<!-- FOOTER -->
+<footer class="border-t border-[var(--bd)] bg-[var(--bg-d)] relative overflow-hidden">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-5">
+        <a href="#" class="flex items-center gap-3 mb-6">
+          <div class="jm-logo-wrap footer-logo logo-enter"><div class="jm-logo-inner"><img src="https://z-cdn-media.chatglm.cn/files/4121495a-93d9-4cfa-83bf-86e2c6d6883c.png?auth_key=1882442539-7d4c45300c4e43da97fefe610569733f-0-0eb9bfd3b3e549b3332ac85e8fc87c5c" alt="JM Logo" class="jm-logo"></div><div class="logo-shimmer"></div></div>
+          <div class="font-display text-2xl tracking-wider">JAN M DIGITAL</div>
+        </a>
+        <p class="text-[var(--mt)] text-sm leading-relaxed max-w-sm mb-6">One-man digital army. Crafting visuals, building websites, and dominating rankings — all from Karachi, Pakistan.</p>
+        <div class="flex gap-3">
+          <a href="https://www.instagram.com/janmbapra/" target="_blank" class="social-icon cursor-hover-target" aria-label="Instagram"><i class="fab fa-instagram text-[var(--fg-d)] text-sm"></i></a>
+          <a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="social-icon cursor-hover-target" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-[var(--fg-d)] text-sm"></i></a>
+          <a href="#" class="social-icon cursor-hover-target" aria-label="WhatsApp"><i class="fab fa-whatsapp text-[var(--fg-d)] text-sm"></i></a>
+        </div>
+      </div>
+      <div class="lg:col-span-2 lg:col-start-7"><div class="font-heading text-xs tracking-[.2em] uppercase text-[var(--ac)] mb-5">Navigation</div><div class="space-y-3"><a href="#about" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors hover:translate-x-1 transform duration-300">About</a><a href="#services" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">Services</a><a href="#portfolio" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">Portfolio</a><a href="#process" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">Process</a></div></div>
+      <div class="lg:col-span-2"><div class="font-heading text-xs tracking-[.2em] uppercase text-[var(--ac)] mb-5">Services</div><div class="space-y-3"><span class="block text-[var(--mt)] text-sm">Graphics Design</span><span class="block text-[var(--mt)] text-sm">Web Development</span><span class="block text-[var(--mt)] text-sm">SEO Optimization</span><span class="block text-[var(--mt)] text-sm">Brand Identity</span></div></div>
+      <div class="lg:col-span-2"><div class="font-heading text-xs tracking-[.2em] uppercase text-[var(--ac)] mb-5">Connect</div><div class="space-y-3"><a href="https://www.instagram.com/janmbapra/" target="_blank" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">Instagram</a><a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">LinkedIn</a><a href="#contact" class="block text-[var(--mt)] text-sm hover:text-[var(--fg)] transition-colors">Get a Quote</a></div></div>
+    </div>
+    <div class="border-t border-[var(--bd)] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="font-mono text-[11px] text-[var(--mt)] tracking-[.15em]">© 2025 JAN MUHAMMAD. ALL RIGHTS RESERVED.</div>
+      <div class="font-mono text-[11px] text-[var(--mt)] tracking-[.15em]">DESIGNED & DEVELOPED BY <span class="text-[var(--ac)]">JAN M</span></div>
+    </div>
+  </div>
+</footer>
 
-    // ====== MOBILE MENU ======
-    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
-    document.getElementById('closeMenu').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
-    function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+<!-- STICKY CTA -->
+<div class="sticky-cta bg-[var(--bg-d)] border-t border-[var(--bd)] backdrop-blur-md" id="stickyCta">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-3 flex items-center justify-between">
+    <div class="font-heading text-sm tracking-wider text-[var(--fg-d)]">READY TO GROW? <span class="text-[var(--mt)]">Let's talk.</span></div>
+    <div class="flex items-center gap-4">
+      <a href="https://www.instagram.com/janmbapra/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] transition-colors"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/jan-m-010b4a363/" target="_blank" class="text-[var(--mt)] hover:text-[var(--ac)] transition-colors"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#contact" class="font-heading text-xs tracking-[.2em] uppercase text-black bg-[var(--ac)] px-5 py-2.5 hover:bg-[var(--ac-b)] transition-colors ripple-btn cursor-hover-target">Get a Quote</a>
+    </div>
+  </div>
+</div>
 
-    // ====== GRAIN ======
-    const grain = document.getElementById('grain');
-    function moveGrain() { grain.style.transform = `translate(${(Math.random()-0.5)*20}px, ${(Math.random()-0.5)*20}px)`; requestAnimationFrame(() => setTimeout(moveGrain, 120)); }
-    moveGrain();
-  </script>
+<script>
+// ===== PRELOADER =====
+let preloaderPct = 0;
+const preloaderBar = document.getElementById('preloaderBar');
+const preloaderPctEl = document.getElementById('preloaderPct');
+const preloaderInterval = setInterval(() => {
+  preloaderPct += Math.random() * 15 + 5;
+  if (preloaderPct > 100) preloaderPct = 100;
+  preloaderBar.style.width = preloaderPct + '%';
+  preloaderPctEl.textContent = String(Math.floor(preloaderPct)).padStart(3, '0') + '%';
+  if (preloaderPct >= 100) {
+    clearInterval(preloaderInterval);
+    setTimeout(() => document.getElementById('preloader').classList.add('done'), 400);
+  }
+}, 200);
+
+// ===== CURSOR SYSTEM =====
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+const trailDots = [];
+const TRAIL_COUNT = 8;
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const t = document.createElement('div');
+  t.className = 'cursor-trail';
+  document.body.appendChild(t);
+  trailDots.push({ el: t, x: 0, y: 0 });
+}
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx - 3 + 'px'; dot.style.top = my - 3 + 'px'; });
+function animCursor() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; ring.style.transform = 'translate(-50%,-50%)';
+  let px = mx, py = my;
+  trailDots.forEach((t, i) => {
+    const speed = 0.3 - i * 0.03;
+    t.x += (px - t.x) * speed; t.y += (py - t.y) * speed;
+    t.el.style.left = t.x - 2 + 'px'; t.el.style.top = t.y - 2 + 'px';
+    t.el.style.opacity = (1 - i / TRAIL_COUNT) * 0.4;
+    px = t.x; py = t.y;
+  });
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('.cursor-hover-target, a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+});
+
+// ===== LOGO 3D TILT + SPARKLES =====
+document.querySelectorAll('.jm-logo-wrap').forEach(wrap => {
+  wrap.addEventListener('mousemove', e => {
+    const rect = wrap.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const cx = rect.width / 2, cy = rect.height / 2;
+    wrap.style.transform = `perspective(600px) rotateX(${((y - cy) / cy) * -14}deg) rotateY(${((x - cx) / cx) * 14}deg) scale(1.1)`;
+    wrap.style.transition = 'transform .08s ease-out';
+  });
+  wrap.addEventListener('mouseleave', () => {
+    wrap.style.transform = 'perspective(600px) rotateX(0) rotateY(0) scale(1)';
+    wrap.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
+  });
+  let sparkleInt = null;
+  wrap.addEventListener('mouseenter', () => {
+    sparkleInt = setInterval(() => {
+      const s = document.createElement('div'); s.className = 'logo-sparkle';
+      const a = Math.random() * Math.PI * 2, r = 12 + Math.random() * 22;
+      s.style.left = (wrap.offsetWidth / 2 + Math.cos(a) * r) + 'px';
+      s.style.top = (wrap.offsetHeight / 2 + Math.sin(a) * r) + 'px';
+      const sz = 1 + Math.random() * 3; s.style.width = sz + 'px'; s.style.height = sz + 'px';
+      s.style.background = Math.random() > 0.5 ? 'var(--ac)' : 'var(--ac-b)';
+      wrap.appendChild(s);
+      const dx = Math.cos(a) * (25 + Math.random() * 35), dy = Math.sin(a) * (25 + Math.random() * 35);
+      s.animate([
+        { opacity: 0, transform: 'translate(0,0) scale(0)' },
+        { opacity: 1, transform: `translate(${dx * .3}px,${dy * .3}px) scale(1)`, offset: 0.3 },
+        { opacity: 0, transform: `translate(${dx}px,${dy}px) scale(0)` }
+      ], { duration: 500 + Math.random() * 400, easing: 'ease-out' }).onfinish = () => s.remove();
+    }, 100);
+  });
+  wrap.addEventListener('mouseleave', () => clearInterval(sparkleInt));
+  // Entrance chain
+  wrap.addEventListener('animationend', function h(e) {
+    if (e.animationName === 'logo-entrance') { wrap.classList.remove('logo-enter'); if (wrap.classList.contains('logo-float')) wrap.style.animation = 'logo-float-anim 4s ease-in-out infinite'; else { wrap.style.opacity = '1'; wrap.style.transform = 'none'; } wrap.removeEventListener('animationend', h); }
+  });
+});
+
+// ===== PARTICLES WITH MOUSE INTERACTION =====
+const canvas = document.getElementById('particles'); const ctx = canvas.getContext('2d');
+let particles = [], mouse = { x: -1000, y: -1000 };
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+class Particle {
+  constructor() { this.reset(); }
+  reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.baseX = this.x; this.baseY = this.y; this.size = Math.random() * 1.8 + 0.3; this.speedX = (Math.random() - 0.5) * 0.2; this.speedY = (Math.random() - 0.5) * 0.2; this.opacity = Math.random() * 0.5 + 0.1; }
+  update() {
+    const dx = mouse.x - this.x, dy = mouse.y - this.y, dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 150) { const force = (150 - dist) / 150; this.x -= dx * force * 0.02; this.y -= dy * force * 0.02; this.opacity = Math.min(this.opacity + 0.02, 0.8); }
+    else { this.x += this.speedX; this.y += this.speedY; this.opacity += (Math.random() * 0.5 + 0.1 - this.opacity) * 0.01; }
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 84, 0, ${this.opacity})`; ctx.fill(); }
+}
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+function animParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  for (let i = 0; i < particles.length; i++) for (let j = i + 1; j < particles.length; j++) {
+    const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 130) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(255, 84, 0, ${0.08 * (1 - dist / 130)})`; ctx.lineWidth = 0.5; ctx.stroke(); }
+  }
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+// ===== INTERSECTION OBSERVER =====
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); // Char reveal delays
+  if (e.target.classList.contains('char-reveal')) { const chars = e.target.querySelectorAll('.char'); chars.forEach((c, i) => c.style.transitionDelay = (i * 0.03) + 's'); }
+} }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-rotate,.reveal-stagger,.char-reveal').forEach(el => obs.observe(el));
+
+// ===== COUNTERS =====
+const cObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.querySelectorAll('[data-count]').forEach(c => { if (c.dataset.done) return; c.dataset.done = '1'; const t = parseInt(c.dataset.count); const l = c.parentElement.querySelector('.font-mono'); const s = (l && l.textContent.includes('%')) ? '%' : '+'; let cur = 0; const step = Math.max(1, Math.floor(t / 55)); const iv = setInterval(() => { cur += step; if (cur >= t) { cur = t; clearInterval(iv); } c.textContent = cur + s; }, 35); }); }); }, { threshold: 0.3 });
+document.querySelectorAll('.reveal-stagger').forEach(el => { if (el.querySelector('[data-count]')) cObs.observe(el); });
+
+// ===== HERO REEL =====
+const frames = document.querySelectorAll('.reel-frame'), chapterNum = document.getElementById('chapterNum'), reelProgress = document.getElementById('reelProgress');
+let cf = 0; const RI = 5500, rs = Date.now();
+function advReel() { frames[cf].classList.remove('active'); cf = (cf + 1) % frames.length; frames[cf].classList.add('active'); chapterNum.textContent = String(cf + 1).padStart(2, '0'); }
+setInterval(advReel, RI);
+let reelStart = Date.now();
+function upProg() { reelProgress.style.width = Math.min(((Date.now() - reelStart) % RI) / RI * 100, 100) + '%'; requestAnimationFrame(upProg); }
+upProg();
+
+// ===== MUTE =====
+let unmuted = false;
+document.getElementById('muteToggle').addEventListener('click', () => { unmuted = !unmuted; document.getElementById('muteToggle').classList.toggle('unmuted', unmuted); document.getElementById('muteLabel').textContent = unmuted ? 'Unmuted' : 'Muted'; document.getElementById('muteIcon').className = unmuted ? 'fas fa-volume-high text-xs text-[var(--ac)]' : 'fas fa-volume-xmark text-xs text-[var(--mt)]'; });
+
+// ===== MOBILE MENU =====
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('closeMenu').addEventListener('click', closeMobileMenu);
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ===== STICKY CTA =====
+window.addEventListener('scroll', () => document.getElementById('stickyCta').classList.toggle('visible', window.scrollY > window.innerHeight * 1.5));
+
+// ===== NAV HIDE/SHOW =====
+let ls = 0; const mn = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { const s = window.scrollY; mn.style.transform = (s > ls && s > 200) ? 'translateY(-100%)' : 'translateY(0)'; mn.style.transition = 'transform .5s cubic-bezier(.22,1,.36,1)'; ls = s; });
+
+// ===== SERVICE FILTER =====
+document.getElementById('serviceFilter').addEventListener('click', e => {
+  if (!e.target.closest('.goal-pill')) return; const pill = e.target.closest('.goal-pill');
+  document.querySelectorAll('#serviceFilter .goal-pill').forEach(p => p.classList.remove('active')); pill.classList.add('active');
+  const f = pill.dataset.filter;
+  document.querySelectorAll('#serviceGrid > article').forEach(card => {
+    if (f === 'all' || card.dataset.service === f) { card.style.display = ''; card.style.opacity = '0'; card.style.transform = 'translateY(30px) scale(.95)'; requestAnimationFrame(() => { card.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)'; card.style.opacity = '1'; card.style.transform = 'translateY(0) scale(1)'; }); }
+    else { card.style.transition = 'opacity .4s, transform .4s'; card.style.opacity = '0'; card.style.transform = 'translateY(20px) scale(.95)'; setTimeout(() => card.style.display = 'none', 450); }
+  });
+});
+
+// ===== SERVICE SELECT =====
+document.getElementById('serviceSelect').addEventListener('click', e => { if (!e.target.closest('.goal-pill')) return; document.querySelectorAll('#serviceSelect .goal-pill').forEach(p => p.classList.remove('active')); e.target.closest('.goal-pill').classList.add('active'); });
+
+// ===== RIPPLE EFFECT =====
+document.querySelectorAll('.ripple-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const r = document.createElement('span'); r.className = 'ripple';
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    r.style.width = r.style.height = size + 'px';
+    r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    r.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(r); setTimeout(() => r.remove(), 600);
+  });
+});
+
+// ===== CONTACT FORM =====
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const toast = document.getElementById('toast'); toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 4000);
+  e.target.reset();
+  document.querySelectorAll('#serviceSelect .goal-pill').forEach((p, i) => p.classList.toggle('active', i === 0));
+});
+
+// ===== TYPING EFFECT =====
+const tw = ['GROWTH', 'RANKINGS', 'REVENUE', 'TRAFFIC', 'BRANDS'];
+let wi = 0, ci = 0, del = false; const te = document.getElementById('heroTyping');
+function typeEff() {
+  const w = tw[wi];
+  if (!del) { te.textContent = w.substring(0, ci + 1); ci++; if (ci === w.length) { del = true; setTimeout(typeEff, 2200); return; } setTimeout(typeEff, 90); }
+  else { te.textContent = w.substring(0, ci - 1); ci--; if (ci === 0) { del = false; wi = (wi + 1) % tw.length; setTimeout(typeEff, 350); return; } setTimeout(typeEff, 50); }
+}
+setTimeout(typeEff, 2800);
+
+// ===== MAGNETIC BUTTONS =====
+document.querySelectorAll('.mag-btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => { const r = btn.getBoundingClientRect(); btn.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.25}px, ${(e.clientY - r.top - r.height / 2) * 0.25}px)`; });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0, 0)'; });
+});
+
+// ===== 3D TILT ON CARDS =====
+document.querySelectorAll('.svc-card, .testi-card, .info-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-8px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ===== PARALLAX =====
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  document.querySelectorAll('.glow-orb').forEach((o, i) => { o.style.transform = `translateY(${s * (i % 2 === 0 ? 0.04 : -0.025)}px)`; });
+});
+</script>
 </body>
 </html>
